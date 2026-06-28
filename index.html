@@ -75,7 +75,15 @@
       <div class="absolute w-28 h-1 bg-gradient-to-r from-cyan-400 to-transparent origin-left animate-pulse" style="transform:rotate(15deg) translateX(40px);animation-delay:0.6s;animation-duration:1.5s"></div>
     </div>
   </div>
-  <p class="mt-8 text-white/80 text-base sm:text-lg font-light tracking-widest animate-pulse">Passando pelo prisma...</p>
+  <div class="mt-10 text-center px-8" style="min-height:72px">
+    <p id="_ld-tag" class="text-[10px] font-black tracking-[0.3em] uppercase text-verde mb-3 opacity-0 transition-opacity duration-500">Sagrado Homem 2027</p>
+    <p id="_ld-txt" class="text-white/70 text-sm sm:text-base font-light tracking-widest transition-opacity duration-500">Construindo o P.R.I.S.M→△ 2027...</p>
+  </div>
+  <div class="mt-6 flex gap-1.5">
+    <div class="w-1.5 h-1.5 rounded-full bg-verde/60" style="animation:ping 1.2s 0s ease-in-out infinite"></div>
+    <div class="w-1.5 h-1.5 rounded-full bg-verde/60" style="animation:ping 1.2s 0.3s ease-in-out infinite"></div>
+    <div class="w-1.5 h-1.5 rounded-full bg-verde/60" style="animation:ping 1.2s 0.6s ease-in-out infinite"></div>
+  </div>
 </div>
 
 <main class="min-h-screen bg-preto text-white overflow-x-hidden">
@@ -638,14 +646,41 @@
   }
 
   // Loading screen
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const el = document.getElementById('loading-screen');
-      el.style.opacity = '0';
-      el.style.transition = 'opacity 0.6s ease';
-      setTimeout(() => el.style.display = 'none', 600);
-    }, 1800);
-  });
+  (function() {
+    const msgs = [
+      { tag: 'Sagrado Homem 2027', txt: 'Construindo o P.R.I.S.M→△ 2027...' },
+      { tag: 'Carnaval · 4 dias', txt: 'Preparando sua jornada de transformação...' },
+      { tag: 'Quase lá', txt: 'Só mais um instante — vale a pena esperar.' },
+    ];
+    let idx = 0;
+    const tagEl = document.getElementById('_ld-tag');
+    const txtEl = document.getElementById('_ld-txt');
+
+    function _fade(el, newText, delay) {
+      setTimeout(() => {
+        el.style.opacity = '0';
+        setTimeout(() => { el.textContent = newText; el.style.opacity = '1'; }, 350);
+      }, delay);
+    }
+
+    setTimeout(() => { tagEl.style.opacity = '1'; }, 300);
+
+    const iv = setInterval(() => {
+      idx = (idx + 1) % msgs.length;
+      _fade(tagEl, msgs[idx].tag, 0);
+      _fade(txtEl, msgs[idx].txt, 0);
+    }, 1600);
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        clearInterval(iv);
+        const el = document.getElementById('loading-screen');
+        el.style.opacity = '0';
+        el.style.transition = 'opacity 0.8s ease';
+        setTimeout(() => el.style.display = 'none', 800);
+      }, 4200);
+    });
+  })();
 
   // Checklist
   function toggleCheck(row) {
