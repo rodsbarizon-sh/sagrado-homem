@@ -37,8 +37,9 @@
     @keyframes shimmer { 0%{left:-100%} 100%{left:200%} }
     .btn-shimmer::after { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent); transform:skewX(-20deg); animation:shimmer 3s infinite; }
     /* Tab content */
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .tab-wrapper { position: relative; min-height: 280px; }
+    .tab-content { display: block; position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+    .tab-content.active { opacity: 1; pointer-events: auto; position: relative; }
     .tab-btn.active { background: #1ab600; color: #000; }
 
     /* Fundo animado Ken Burns — fallback offline */
@@ -361,7 +362,7 @@
         <button class="tab-btn px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap bg-black/50 border border-gray-700 text-gray-300 hover:border-verde hover:text-verde" onclick="switchTab(this,'tab4')">Transformação</button>
       </div>
     </div>
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-3xl mx-auto tab-wrapper">
       <div id="tab1" class="tab-content active bg-[#0a0a0a] border border-gray-800 rounded-lg p-8">
         <div class="flex items-start gap-4">
           <div class="flex-shrink-0 w-12 h-12 rounded-full bg-verde flex items-center justify-center"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
@@ -707,15 +708,30 @@
   // Tabs
   function switchTab(btn, tabId) {
     document.querySelectorAll('.tab-btn').forEach(b => {
-      b.classList.remove('active');
+      b.classList.remove('active','text-black');
       b.classList.add('bg-black/50','border','border-gray-700','text-gray-300');
-      b.classList.remove('text-black');
     });
-    btn.classList.add('active');
+    btn.classList.add('active','text-black');
     btn.classList.remove('bg-black/50','border','border-gray-700','text-gray-300');
-    btn.classList.add('text-black');
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
+
+    const current = document.querySelector('.tab-content.active');
+    const next = document.getElementById(tabId);
+    if (current === next) return;
+
+    current.style.opacity = '0';
+    current.style.pointerEvents = 'none';
+    setTimeout(function() {
+      current.classList.remove('active');
+      current.style.opacity = '';
+      current.style.pointerEvents = '';
+      next.classList.add('active');
+      next.style.opacity = '0';
+      requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+          next.style.opacity = '';
+        });
+      });
+    }, 300);
   }
 
   // Countdown to 2026-02-14
