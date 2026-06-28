@@ -691,22 +691,14 @@
 </div>
 
 <script>
-  // ===== CONFIGURAÇÃO SUPABASE =====
-  // PASSO 1: Cole aqui a URL e chave do seu projeto Supabase
-  const _SB_URL  = 'COLE_AQUI_SUA_SUPABASE_URL';
-  const _SB_KEY  = 'COLE_AQUI_SUA_SUPABASE_ANON_KEY';
+  const _SB_URL = 'https://qqqbcbkwudipncnzcvzv.supabase.co';
+  const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxcWJjYmt3dWRpcG5jbnpjdnp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI2MDA1MTAsImV4cCI6MjA5ODE3NjUxMH0.hey5Ebaj1QdSpDWImGlb1F2Z_e9RK3qzlR9L_qFf_nc';
   const _sb = supabase.createClient(_SB_URL, _SB_KEY);
 
-  // ===== CREDENCIAIS DO PAINEL (ofuscadas) =====
-  // Nunca aparecem como texto legível no código
-  const _c1 = [114,111,100,115];                          // usuário
-  const _c2 = [76,111,115,116,52,56,55,53,36];            // senha UI
-  // PASSO 2: Cole abaixo o email e a senha do usuário admin que você criar no Supabase Auth
-  // Para gerar os arrays: no console do browser, execute:
-  //   [...'seu@email.com'].map(c=>c.charCodeAt(0)).join(',')
-  //   [...'suasenha'].map(c=>c.charCodeAt(0)).join(',')
-  const _c3 = [/* COLE OS CHAR CODES DO EMAIL ADMIN AQUI */];
-  const _c4 = [/* COLE OS CHAR CODES DA SENHA ADMIN AQUI */];
+  const _c1 = [114,111,100,115];
+  const _c2 = [76,111,115,116,52,56,55,53,36];
+  const _c3 = [114,111,100,115,98,97,114,105,122,111,110,64,103,109,97,105,108,46,99,111,109];
+  const _c4 = [76,111,115,116,52,56,55,53,36];
 
   function _dc(a){return a.map(n=>String.fromCharCode(n)).join('')}
 
