@@ -645,41 +645,41 @@
     if (ytBg) setTimeout(() => { ytBg.style.opacity = '1'; }, 3000);
   }
 
-  // Loading screen
+  // Loading screen — loop infinito até segunda ordem
   (function() {
     const msgs = [
-      { tag: 'Sagrado Homem 2027', txt: 'Construindo o P.R.I.S.M→△ 2027...' },
-      { tag: 'Carnaval · 4 dias', txt: 'Preparando sua jornada de transformação...' },
-      { tag: 'Quase lá', txt: 'Só mais um instante — vale a pena esperar.' },
+      { tag: 'Sagrado Homem 2027', txt: 'Algo está sendo construído aqui.' },
+      { tag: 'Carnaval · Fevereiro 2027', txt: 'Enquanto o Brasil foge da realidade...' },
+      { tag: '4 dias que mudam tudo', txt: '...alguns homens vão encarar a deles.' },
+      { tag: 'P.R.I.S.M→△', txt: 'O único método que une Neurociência e Medicina Ancestral.' },
+      { tag: 'Em breve', txt: 'Uma experiência para poucos que têm coragem.' },
+      { tag: 'Você está no lugar certo', txt: 'Se você sente que falta algo — aqui começa a resposta.' },
+      { tag: 'Franco da Rocha · SP', txt: '4 dias fora da rotina. Uma vida diferente depois.' },
+      { tag: 'Sagrado Homem 2027', txt: 'Volte aqui. Em breve você vai entender tudo.' },
+      { tag: 'Quem tem coragem, espera.', txt: 'A abertura está chegando. Fique de olho.' },
+      { tag: '⬡ P.R.I.S.M→△ ⬡', txt: 'Algo raro está prestes a ser revelado.' },
     ];
     let idx = 0;
     const tagEl = document.getElementById('_ld-tag');
     const txtEl = document.getElementById('_ld-txt');
 
-    function _fade(el, newText, delay) {
+    function _setMsg(i) {
+      tagEl.style.opacity = '0';
+      txtEl.style.opacity = '0';
       setTimeout(() => {
-        el.style.opacity = '0';
-        setTimeout(() => { el.textContent = newText; el.style.opacity = '1'; }, 350);
-      }, delay);
+        tagEl.textContent = msgs[i].tag;
+        txtEl.textContent = msgs[i].txt;
+        tagEl.style.opacity = '1';
+        txtEl.style.opacity = '1';
+      }, 400);
     }
 
-    setTimeout(() => { tagEl.style.opacity = '1'; }, 300);
+    setTimeout(() => _setMsg(0), 300);
 
-    const iv = setInterval(() => {
+    setInterval(() => {
       idx = (idx + 1) % msgs.length;
-      _fade(tagEl, msgs[idx].tag, 0);
-      _fade(txtEl, msgs[idx].txt, 0);
-    }, 1600);
-
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        clearInterval(iv);
-        const el = document.getElementById('loading-screen');
-        el.style.opacity = '0';
-        el.style.transition = 'opacity 0.8s ease';
-        setTimeout(() => el.style.display = 'none', 800);
-      }, 4200);
-    });
+      _setMsg(idx);
+    }, 2800);
   })();
 
   // Checklist
