@@ -645,8 +645,14 @@
     if (ytBg) setTimeout(() => { ytBg.style.opacity = '1'; }, 3000);
   }
 
-  // Loading screen — loop infinito até segunda ordem
+  // Loading screen — loop infinito no domínio oficial; beta mostra a página direto
   (function() {
+    const isBeta = location.hostname.includes('vercel.app') || location.hostname === 'localhost';
+    if (isBeta) {
+      const el = document.getElementById('loading-screen');
+      el.style.display = 'none';
+      return;
+    }
     const msgs = [
       { tag: 'Sagrado Homem 2027', txt: 'Algo está sendo construído aqui.' },
       { tag: 'Carnaval · Fevereiro 2027', txt: 'Enquanto o Brasil foge da realidade...' },
