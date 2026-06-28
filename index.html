@@ -55,11 +55,9 @@
       66%      { filter: brightness(0.8)  saturate(1.0) hue-rotate(-5deg); }
     }
     .aceleradores-bg {
-      background-image: url('/images/oca_da_ana.webp');
+      background-color: #0a1a0a;
       background-size: cover;
       background-position: center;
-      animation: kenBurns 20s ease-in-out infinite, colorShift 20s ease-in-out infinite;
-      will-change: transform;
     }
   </style>
 </head>
@@ -85,7 +83,6 @@
 <!-- ========== HERO ========== -->
 <section class="relative min-h-screen overflow-hidden flex flex-col justify-center py-4 sm:py-6 md:py-8 lg:py-0">
   <div class="absolute inset-0 z-0">
-    <img alt="Background" class="object-cover object-center opacity-60 w-full h-full" style="position:absolute;inset:0" src="/images/encontro.webp">
   </div>
   <div class="absolute inset-0 z-[1] bg-gradient-to-b from-black/30 via-transparent to-black"></div>
   <div class="absolute inset-0 z-[1]" style="background:radial-gradient(circle at center,transparent 0%,rgba(0,0,0,0.6) 100%)"></div>
@@ -167,7 +164,7 @@
 
 <!-- ========== VOCÊ TEM SE SENTIDO ASSIM? ========== -->
 <section class="relative py-8 sm:py-16 lg:py-16 bg-[#050505] overflow-hidden">
-  <div class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image:url('/images/encontro.webp')"></div>
+  <div class="absolute inset-0 z-0 bg-[#050505]"></div>
   <div class="absolute inset-0 z-[1] bg-gradient-to-b from-black via-black/50 to-black/90"></div>
   <div class="absolute top-0 left-0 w-full h-32 sm:h-48 bg-gradient-to-b from-black to-transparent z-20 pointer-events-none"></div>
   <div class="relative z-10 container mx-auto px-4" style="max-width:56rem">
@@ -232,7 +229,7 @@
 
 <!-- ========== COMO VOCÊ VAI SAIR ========== -->
 <section class="relative py-8 sm:py-16 lg:py-32 bg-[#050505] overflow-hidden">
-  <div class="absolute inset-0 z-0 bg-cover bg-center opacity-30 sm:opacity-40" style="background-image:url('/images/oca_da_ana.webp');background-color:rgb(10,10,10)"></div>
+  <div class="absolute inset-0 z-0 bg-[#0a0a0a]"></div>
   <div class="absolute inset-0 z-[1] bg-gradient-to-b from-preto/80 via-preto/60 to-preto/90"></div>
   <div class="relative z-10 container mx-auto px-4" style="max-width:80rem">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -240,7 +237,7 @@
         <div class="absolute -left-4 bottom-0 z-10">
           <svg width="120" height="200" viewBox="0 0 120 200" fill="none"><path d="M60 200 C 20 180, 0 140, 0 100 C 0 60, 20 20, 60 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.6"></path><path d="M80 200 C 40 180, 20 140, 20 100 C 20 60, 40 20, 80 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.4"></path><path d="M100 200 C 60 180, 40 140, 40 100 C 40 60, 60 20, 100 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.2"></path></svg>
         </div>
-        <div class="relative overflow-hidden rounded-3xl"><img alt="Encontro Sagrado Homem" class="w-full h-auto object-cover" src="/images/encontro.webp"></div>
+        <div class="relative overflow-hidden rounded-3xl h-64 bg-[#111]"></div>
       </div>
       <div>
         <h2 class="text-2xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-8 leading-tight text-center lg:text-left">Como você vai sair após participar do <span class="text-transparent bg-clip-text bg-gradient-to-r from-verde to-verde-claro" style="-webkit-background-clip:text">Sagrado Homem</span></h2>
@@ -283,7 +280,6 @@
       <div class="w-full lg:w-1/2 max-w-xs sm:max-w-sm lg:max-w-none mx-auto">
         <div class="aspect-[3/4] sm:aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/5 relative">
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
-          <img alt="Palestra" class="w-full h-full object-cover object-center" src="/images/encontro.webp">
         </div>
       </div>
     </div>
@@ -424,7 +420,6 @@
       <div class="relative">
         <div class="absolute -top-6 -left-6 w-full h-full border-2 border-verde/10 rounded-[3rem] -z-10"></div>
         <div class="relative rounded-[3rem] overflow-hidden shadow-2xl">
-          <img alt="Oca da Ana" class="w-full h-auto object-cover" src="/images/oca_da_ana.webp">
         </div>
       </div>
       <div>
@@ -459,13 +454,13 @@
       <div class="lg:col-span-3">
         <h3 class="text-xl font-bold text-gray-900 mb-6">Espaços de Conexão</h3>
         <div class="grid grid-cols-3 grid-rows-2 gap-4" style="height:400px">
-          <div class="relative rounded-2xl overflow-hidden shadow-lg group col-span-2 row-span-2"><img alt="Galeria 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="/images/encontro.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
-          <div class="relative rounded-2xl overflow-hidden shadow-lg group"><img alt="Galeria 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="/images/oca_da_ana.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
-          <div class="relative rounded-2xl overflow-hidden shadow-lg group"><img alt="Galeria 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="/images/encontro.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group col-span-2 row-span-2 bg-[#111]"></div>
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group bg-[#111]"></div>
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group bg-[#111]"></div>
         </div>
         <div class="grid grid-cols-3 gap-4 mt-4" style="height:130px">
-          <div class="relative rounded-2xl overflow-hidden shadow-lg group"><img alt="Galeria 4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="/images/oca_da_ana.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
-          <div class="relative rounded-2xl overflow-hidden shadow-lg group"><img alt="Galeria 5" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="/images/encontro.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group bg-[#111]"></div>
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group bg-[#111]"></div>
           <div class="relative rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-200">
             <a href="https://maps.google.com/?q=Rua+Americo+Barbosa+Ortiz+71+Itaim+Franco+da+Rocha+SP" target="_blank" rel="noopener noreferrer" class="absolute inset-0 flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-all group">
               <div class="bg-verde text-white px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-2 shadow-xl transform group-hover:scale-105 transition-transform"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>Ver no Mapa</div>
@@ -479,7 +474,7 @@
 
 <!-- ========== OFERTA / PREÇO ========== -->
 <section id="oferta" class="relative flex items-center justify-center overflow-hidden py-8 sm:py-16 lg:py-32" style="min-height:80vh">
-  <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image:url('/images/oca_da_ana.webp')">
+  <div class="absolute inset-0 z-0 bg-[#050505]">
     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/60"></div>
   </div>
   <div class="relative z-10 container mx-auto px-4 text-center" style="max-width:56rem">
@@ -529,7 +524,6 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-8 lg:gap-16 max-w-4xl mx-auto">
       <div class="group">
         <div class="mb-4 sm:mb-8 relative mx-auto w-full max-w-[200px] sm:max-w-[240px] lg:max-w-none aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:shadow-verde/10">
-          <img alt="Rodolfo Barizon" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="filter:grayscale(10%)" src="/images/encontro.webp">
         </div>
         <div class="text-center lg:text-left">
           <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 group-hover:text-verde transition-colors duration-300">Rodolfo Barizon</h3>
@@ -542,7 +536,6 @@
       </div>
       <div class="group">
         <div class="mb-4 sm:mb-8 relative mx-auto w-full max-w-[200px] sm:max-w-[240px] lg:max-w-none aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:shadow-verde/10">
-          <img alt="César Frezza" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="filter:grayscale(10%)" src="/images/oca_da_ana.webp">
         </div>
         <div class="text-center lg:text-left">
           <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 group-hover:text-verde transition-colors duration-300">César Frezza</h3>
@@ -560,7 +553,7 @@
 <!-- ========== DECISÃO FINAL ========== -->
 <section class="relative py-8 sm:py-16 overflow-hidden">
   <div class="absolute inset-0 z-0">
-    <div class="absolute inset-0 bg-cover bg-center scale-110" style="background-image:url('/images/encontro.webp')"></div>
+    <div class="absolute inset-0 bg-[#050505]"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-[#0a1510] opacity-95"></div>
   </div>
   <div class="container mx-auto px-4 relative z-10 max-w-3xl">
