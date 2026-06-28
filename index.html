@@ -37,8 +37,8 @@
     @keyframes shimmer { 0%{left:-100%} 100%{left:200%} }
     .btn-shimmer::after { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent); transform:skewX(-20deg); animation:shimmer 3s infinite; }
     /* Tab content */
-    .tab-wrapper { position: relative; height: 320px; }
-    .tab-content { display: block; position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; overflow-y: auto; }
+    .tab-wrapper { position: relative; }
+    .tab-content { display: block; position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
     .tab-content.active { opacity: 1; pointer-events: auto; }
     .tab-btn.active { background: #1ab600; color: #000; }
 
@@ -746,6 +746,33 @@
       });
     }, 300);
   }
+
+  // Set tab-wrapper height to tallest tab
+  (function() {
+    function setTabHeight() {
+      var wrapper = document.querySelector('.tab-wrapper');
+      if (!wrapper) return;
+      var tabs = wrapper.querySelectorAll('.tab-content');
+      var maxH = 0;
+      tabs.forEach(function(tab) {
+        tab.style.position = 'relative';
+        tab.style.opacity = '1';
+        tab.style.display = 'block';
+        var h = tab.scrollHeight;
+        if (h > maxH) maxH = h;
+        tab.style.position = '';
+        tab.style.opacity = '';
+        tab.style.display = '';
+      });
+      wrapper.style.height = maxH + 'px';
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setTabHeight);
+    } else {
+      setTabHeight();
+    }
+    window.addEventListener('resize', setTabHeight);
+  })();
 
   // Countdown to 2026-02-14
   function updateCountdown() {
