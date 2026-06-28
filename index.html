@@ -243,10 +243,26 @@
   <div class="relative z-10 container mx-auto px-4" style="max-width:80rem">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
       <div class="relative">
-        <div class="absolute -left-4 bottom-0 z-10">
-          <svg width="120" height="200" viewBox="0 0 120 200" fill="none"><path d="M60 200 C 20 180, 0 140, 0 100 C 0 60, 20 20, 60 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.6"></path><path d="M80 200 C 40 180, 20 140, 20 100 C 20 60, 40 20, 80 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.4"></path><path d="M100 200 C 60 180, 40 140, 40 100 C 40 60, 60 20, 100 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.2"></path></svg>
+        <!-- Linhas decorativas verdes -->
+        <div class="absolute -left-4 -bottom-4 z-10" style="width:180px;height:220px">
+          <svg viewBox="0 0 180 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M90 220 C 30 200, 0 160, 0 110 C 0 60, 30 20, 90 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.7"/>
+            <path d="M110 220 C 50 200, 20 160, 20 110 C 20 60, 50 20, 110 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.5"/>
+            <path d="M130 220 C 70 200, 40 160, 40 110 C 40 60, 70 20, 130 0" stroke="#57b709" stroke-width="2" fill="none" opacity="0.3"/>
+            <path d="M150 220 C 90 200, 60 160, 60 110 C 60 60, 90 20, 150 0" stroke="#ccff00" stroke-width="2" fill="none" opacity="0.2"/>
+          </svg>
         </div>
-        <div class="relative overflow-hidden rounded-3xl h-64 bg-[#111]"></div>
+        <!-- Foto com blob orgânico -->
+        <div class="relative" style="clip-path:url(#blob-clip)">
+          <svg width="0" height="0" style="position:absolute">
+            <defs>
+              <clipPath id="blob-clip" clipPathUnits="objectBoundingBox">
+                <path d="M0.75,0.04 C0.92,0.08,1.0,0.25,0.98,0.45 C0.96,0.65,0.85,0.82,0.68,0.92 C0.51,1.02,0.3,1.02,0.15,0.9 C0.0,0.78,-0.04,0.55,0.04,0.35 C0.12,0.15,0.3,0.02,0.5,0.0 C0.62,-0.01,0.68,0.01,0.75,0.04 Z"/>
+              </clipPath>
+            </defs>
+          </svg>
+          <img src="/images/oca_da_ana.webp" alt="Encontro Sagrado Homem" class="w-full h-auto object-cover" style="min-height:320px;object-position:center">
+        </div>
       </div>
       <div>
         <h2 class="text-2xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-8 leading-tight text-center lg:text-left">Como você vai sair após participar do <span class="text-transparent bg-clip-text bg-gradient-to-r from-verde to-verde-claro" style="-webkit-background-clip:text">Sagrado Homem</span></h2>
