@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sagrado Homem 2027 — Você tem coragem?</title>
+  <meta name="description" content="Por que você deveria participar do Sagrado Homem 27? Responda e faça parte da lista.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            verde: '#1ab600',
+            'verde-claro': '#ccff00',
+            amarelo: '#fdff00',
+          },
+          fontFamily: {
+            sans: ['Roboto', 'Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+            'fade-up': 'fadeUp 0.8s ease forwards',
+          },
+          keyframes: {
+            glowPulse: {
+              '0%, 100%': { boxShadow: '0 0 30px rgba(26,182,0,0.4)' },
+              '50%': { boxShadow: '0 0 60px rgba(26,182,0,0.8), 0 0 100px rgba(204,255,0,0.3)' },
+            },
+            fadeUp: {
+              from: { opacity: '0', transform: 'translateY(30px)' },
+              to: { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Roboto', 'Inter', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* Scanline overlay sutil */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,0.03) 3px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(26,182,0,0.4); }
+      50% { box-shadow: 0 0 60px rgba(26,182,0,0.8), 0 0 100px rgba(204,255,0,0.3); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
+
+    .fade-up { animation: fadeUp 0.8s ease forwards; }
+    .fade-up-delay-1 { animation: fadeUp 0.8s 0.15s ease both; }
+    .fade-up-delay-2 { animation: fadeUp 0.8s 0.3s ease both; }
+    .fade-up-delay-3 { animation: fadeUp 0.8s 0.5s ease both; }
+    .fade-up-delay-4 { animation: fadeUp 0.8s 0.7s ease both; }
+
+    /* Cursor piscando no headline */
+    .cursor-blink::after {
+      content: '|';
+      animation: blink 1.1s step-start infinite;
+      color: #ccff00;
+      margin-left: 2px;
+    }
+
+    /* Campo de formulário */
+    .field-wrapper {
+      position: relative;
+    }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 15px;
+      transition: all 0.25s ease;
+      outline: none;
+    }
+
+    .form-input:focus {
+      background: rgba(26,182,0,0.05);
+      border-color: rgba(26,182,0,0.6);
+      box-shadow: 0 0 0 3px rgba(26,182,0,0.1);
+    }
+
+    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+
+    .form-input.error {
+      border-color: rgba(239,68,68,0.7);
+      background: rgba(239,68,68,0.05);
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.6;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+    }
+
+    .error-msg {
+      font-size: 12px;
+      color: #f87171;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-msg.show { display: block; }
+
+    /* Botão de envio */
+    .btn-submit {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(to bottom, #2ad100, #148f00);
+      border: 1px solid rgba(204,255,0,0.3);
+      border-radius: 9999px;
+      padding: 18px 32px;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 40px rgba(26,182,0,0.6);
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      inset-x: 0;
+      top: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(204,255,0,0.5), transparent);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 70px rgba(26,182,0,0.9), 0 0 120px rgba(204,255,0,0.2);
+    }
+
+    .btn-submit:active { transform: translateY(0); }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      animation: none;
+    }
+
+    /* Contador de caracteres */
+    .char-counter {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      text-align: right;
+      margin-top: 5px;
+    }
+
+    .char-counter.warn { color: #fdff00; }
+    .char-counter.over { color: #f87171; }
+
+    /* Estado de sucesso */
+    .success-card {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 48px 24px;
+      gap: 20px;
+    }
+
+    .success-card.show { display: flex; }
+
+    /* Progress dots */
+    .progress-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .progress-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .progress-dot.active { background: #1ab600; }
+    .progress-dot.done { background: rgba(26,182,0,0.4); }
+
+    /* Selo de garantia */
+    .trust-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid rgba(26,182,0,0.2);
+      background: rgba(26,182,0,0.05);
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ===== ADMIN PANEL ===== */
+    #_g {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      width: 26px;
+      height: 26px;
+      background: transparent;
+      border: none;
+      padding: 0;
+      opacity: 0;
+      cursor: default;
+      z-index: 9990;
+      transition: opacity 0.6s ease;
+      color: rgba(255,255,255,0.4);
+      line-height: 1;
+      font-size: 16px;
+    }
+
+    #_adm {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.98);
+      overflow-y: auto;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    ._ai {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 14px;
+    }
+    ._ai:focus { border-color: rgba(26,182,0,0.6); }
+
+    ._ab {
+      width: 100%;
+      background: linear-gradient(to bottom, #2ad100, #148f00);
+      border: none;
+      border-radius: 9999px;
+      padding: 13px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 4px;
+    }
+    ._ab:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(26,182,0,0.5); }
+
+    ._at {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    ._at th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      white-space: nowrap;
+    }
+    ._at td {
+      padding: 14px 14px;
+      color: rgba(255,255,255,0.75);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    ._at tr:hover td { background: rgba(255,255,255,0.02); }
+    ._resp { max-width: 380px; white-space: pre-wrap; }
+    ._tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      background: rgba(26,182,0,0.15);
+      color: #1ab600;
+      border: 1px solid rgba(26,182,0,0.25);
+    }
+  </style>
+</head>
+<body>
+
+<!-- BG gradient animado -->
+<div class="fixed inset-0 z-0 pointer-events-none">
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(26,182,0,0.08) 0%, transparent 60%)"></div>
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse 60% 40% at 80% 100%, rgba(204,255,0,0.04) 0%, transparent 60%)"></div>
+  <div class="absolute inset-0 bg-black/30"></div>
+</div>
+
+<main class="relative z-10 min-h-screen flex flex-col">
+
+  <!-- ===============================================
+       HERO — Topo impactante
+       =============================================== -->
+  <section class="relative min-h-screen flex flex-col items-center justify-center px-4 py-20 text-center overflow-hidden">
+
+    <!-- Background hero image com overlay pesado -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://sagradohomem.net.br/images/galeria_03.webp"
+        alt=""
+        class="w-full h-full object-cover object-center opacity-20"
+      >
+      <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.7) 70%, black 100%)"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto w-full">
+
+      <!-- Logo -->
+      <div class="flex justify-center mb-10 fade-up">
+        <img
+          src="https://sagradohomem.net.br/images/logo.webp"
+          alt="Sagrado Homem"
+          class="h-10 sm:h-14 object-contain"
+          style="filter: drop-shadow(0 0 20px rgba(26,182,0,0.5))"
+        >
+      </div>
+
+      <!-- Pré-headline -->
+      <div class="fade-up-delay-1 mb-4">
+        <span class="inline-block text-xs sm:text-sm font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-full" style="color:#ccff00;border:1px solid rgba(204,255,0,0.25);background:rgba(204,255,0,0.05)">
+          Carnaval 2027 — Vagas Limitadas
+        </span>
+      </div>
+
+      <!-- Headline principal -->
+      <h1 class="fade-up-delay-2 text-4xl sm:text-5xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
+        Você tem coragem de<br>
+        <span class="text-transparent bg-clip-text font-black" style="background-image: linear-gradient(135deg, #1ab600 0%, #ccff00 100%); -webkit-background-clip: text;">
+          encontrar a tua<br>melhor versão?
+        </span>
+      </h1>
+
+      <!-- Subheadline desafiadora -->
+      <p class="fade-up-delay-3 text-base sm:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10">
+        Se sim — prove.<br>
+        <span class="text-white font-medium">Responda a pergunta abaixo e garanta o seu lugar na lista.</span>
+      </p>
+
+      <!-- Seta para baixo -->
+      <div class="fade-up-delay-4 flex flex-col items-center gap-3">
+        <div class="text-xs uppercase tracking-widest font-bold" style="color:rgba(204,255,0,0.6)">Role e responda</div>
+        <svg class="w-6 h-6 text-green-400 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===============================================
+       SEÇÃO DO FORMULÁRIO
+       =============================================== -->
+  <section class="relative z-10 px-4 pb-24 pt-0">
+    <div class="max-w-xl mx-auto">
+
+      <!-- Card do formulário -->
+      <div class="rounded-2xl overflow-hidden" style="background: rgba(10,10,10,0.95); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 0 80px rgba(0,0,0,0.8)">
+
+        <!-- Topo do card -->
+        <div class="p-6 sm:p-8 border-b" style="border-color: rgba(255,255,255,0.06)">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style="background: rgba(26,182,0,0.15); border: 1px solid rgba(26,182,0,0.3)">
+              <svg class="w-5 h-5" style="color:#1ab600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-white font-bold text-base sm:text-lg leading-tight mb-1">
+                Por que <em>você</em> deveria participar do<br>
+                <span style="color:#ccff00">Sagrado Homem 27?</span>
+              </h2>
+              <p class="text-xs sm:text-sm leading-relaxed" style="color:rgba(255,255,255,0.45)">
+                Não é uma pergunta qualquer. É o primeiro teste. Homens que chegam com uma resposta honesta são os que saem transformados.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulário -->
+        <div id="form-container" class="p-6 sm:p-8">
+          <form id="lead-form" novalidate>
+            <div class="flex flex-col gap-5">
+
+              <!-- Nome -->
+              <div class="field-wrapper">
+                <label for="nome" class="form-label">Seu nome</label>
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  class="form-input"
+                  placeholder="Como você se chama?"
+                  autocomplete="given-name"
+                >
+                <div class="error-msg" id="nome-error">Digite seu nome.</div>
+              </div>
+
+              <!-- Celular -->
+              <div class="field-wrapper">
+                <label for="celular" class="form-label">Celular / WhatsApp</label>
+                <input
+                  type="tel"
+                  id="celular"
+                  name="celular"
+                  class="form-input"
+                  placeholder="(11) 99999-0000"
+                  autocomplete="tel"
+                  inputmode="tel"
+                >
+                <div class="error-msg" id="celular-error">Celular inválido.</div>
+              </div>
+
+              <!-- Email -->
+              <div class="field-wrapper">
+                <label for="email" class="form-label">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="seu@email.com"
+                  autocomplete="email"
+                  inputmode="email"
+                >
+                <div class="error-msg" id="email-error">Email inválido.</div>
+              </div>
+
+              <!-- Resposta -->
+              <div class="field-wrapper">
+                <label for="resposta" class="form-label">
+                  Por que você deveria participar?
+                  <span style="color:rgba(204,255,0,0.6);font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;display:block;margin-top:2px;">Seja honesto. Quanto mais verdadeiro, melhor.</span>
+                </label>
+                <textarea
+                  id="resposta"
+                  name="resposta"
+                  class="form-input"
+                  placeholder="Escreva sua resposta aqui. O que está travando você? O que você quer mudar? Por que agora?"
+                  rows="5"
+                  maxlength="1000"
+                ></textarea>
+                <div class="char-counter" id="char-counter">0 / 1000</div>
+                <div class="error-msg" id="resposta-error">Escreva pelo menos 30 caracteres.</div>
+              </div>
+
+              <!-- Checkbox de aceite -->
+              <label class="flex items-start gap-3 cursor-pointer group">
+                <input type="checkbox" id="aceite" class="sr-only">
+                <div id="check-box" class="shrink-0 mt-0.5 w-5 h-5 rounded flex items-center justify-center transition-all" style="border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.04)">
+                </div>
+                <span class="text-xs leading-relaxed" style="color:rgba(255,255,255,0.45)">
+                  Autorizo o Sagrado Homem a entrar em contato comigo via WhatsApp e email.
+                </span>
+              </label>
+              <div class="error-msg" id="aceite-error">Você precisa autorizar o contato para continuar.</div>
+
+              <!-- Botão -->
+              <div class="pt-2">
+                <button type="submit" id="btn-submit" class="btn-submit">
+                  <span id="btn-text">Enviar minha resposta</span>
+                  <span id="btn-loading" class="hidden">Enviando...</span>
+                </button>
+              </div>
+
+              <!-- Trust -->
+              <div class="flex flex-wrap justify-center gap-3 pt-1">
+                <span class="trust-pill">
+                  <svg class="w-3.5 h-3.5" style="color:#1ab600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg>
+                  Dados seguros
+                </span>
+                <span class="trust-pill">
+                  <svg class="w-3.5 h-3.5" style="color:#1ab600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                  Sem spam
+                </span>
+                <span class="trust-pill">
+                  <svg class="w-3.5 h-3.5" style="color:#1ab600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg>
+                  Rodolfo lê cada resposta
+                </span>
+              </div>
+
+            </div>
+          </form>
+
+          <!-- Estado de sucesso -->
+          <div class="success-card" id="success-card">
+            <div class="w-20 h-20 rounded-full flex items-center justify-center glow-pulse" style="background: rgba(26,182,0,0.15); border: 2px solid rgba(26,182,0,0.4)">
+              <svg class="w-10 h-10" style="color:#1ab600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-white font-black text-2xl sm:text-3xl mb-2">Resposta recebida.</h3>
+              <p class="text-gray-400 text-sm sm:text-base leading-relaxed max-w-xs mx-auto">
+                Rodolfo vai ler pessoalmente. Se sua resposta mostrar que você está pronto, você será o primeiro a saber quando as inscrições abrirem.
+              </p>
+            </div>
+            <div class="w-full max-w-xs">
+              <a
+                href="https://wa.me/5511930032464?text=Olá%20Rodolfo%2C%20acabei%20de%20responder%20a%20pergunta%20do%20Sagrado%20Homem%2027!"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-2.5 w-full py-3.5 rounded-xl text-white font-bold text-sm transition-all"
+                style="background: rgba(37,211,102,0.15); border: 1px solid rgba(37,211,102,0.4); hover-background: rgba(37,211,102,0.25)"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Falar no WhatsApp
+              </a>
+            </div>
+            <div class="text-xs text-gray-600">Sagrado Homem 27 · Carnaval · Franco da Rocha, SP</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Social proof abaixo do card -->
+      <div class="mt-8 text-center">
+        <p class="text-xs uppercase tracking-widest font-bold mb-4" style="color:rgba(255,255,255,0.2)">Galeria do Evento</p>
+        <div class="grid grid-cols-4 gap-2">
+          <img src="https://sagradohomem.net.br/images/galeria_01.webp" alt="" class="w-full aspect-square object-cover rounded-lg opacity-60 hover:opacity-100 transition-opacity">
+          <img src="https://sagradohomem.net.br/images/galeria_02.webp" alt="" class="w-full aspect-square object-cover rounded-lg opacity-60 hover:opacity-100 transition-opacity">
+          <img src="https://sagradohomem.net.br/images/galeria_04.webp" alt="" class="w-full aspect-square object-cover rounded-lg opacity-60 hover:opacity-100 transition-opacity">
+          <img src="https://sagradohomem.net.br/images/galeria_05.webp" alt="" class="w-full aspect-square object-cover rounded-lg opacity-60 hover:opacity-100 transition-opacity">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer mínimo -->
+  <footer class="relative z-10 border-t py-8 text-center" style="border-color:rgba(255,255,255,0.06)">
+    <img src="https://sagradohomem.net.br/images/logo.webp" alt="Sagrado Homem" class="h-6 object-contain mx-auto mb-4 opacity-40">
+    <p class="text-xs" style="color:rgba(255,255,255,0.2)">© 2027 Sagrado Homem · <a href="mailto:contato@sagradohomem.net.br" class="hover:opacity-60 transition-opacity">contato@sagradohomem.net.br</a></p>
+  </footer>
+
+</main>
+
+<!-- ===== ENGRENAGEM OCULTA ===== -->
+<button id="_g" title="" aria-hidden="true" tabindex="-1">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>
+</button>
+
+<!-- ===== PAINEL ADMIN ===== -->
+<div id="_adm">
+
+  <!-- LOGIN -->
+  <div id="_adm-login" style="max-width:380px;margin:100px auto 0;padding:0 20px;">
+    <div style="border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:36px 32px;background:rgba(8,8,8,0.99);">
+      <div style="text-align:center;margin-bottom:28px;">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(26,182,0,0.12);border:1px solid rgba(26,182,0,0.3);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1ab600" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);">ÁREA RESTRITA</div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px;">Usuário</div>
+        <input id="_au" type="text" class="_ai" placeholder="·········" autocomplete="off" spellcheck="false">
+      </div>
+
+      <div style="margin-bottom:6px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:8px;">Senha</div>
+        <input id="_ap" type="password" class="_ai" placeholder="·············" autocomplete="off"
+          onkeydown="if(event.key==='Enter')_admLogin()">
+      </div>
+
+      <div id="_adm-err" style="display:none;font-size:12px;color:#f87171;text-align:center;margin-bottom:12px;padding:8px;border-radius:8px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);">
+        Credenciais inválidas.
+      </div>
+
+      <button class="_ab" id="_adm-btn" onclick="_admLogin()">Entrar</button>
+
+      <button onclick="_admClose()" style="width:100%;background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:9999px;padding:11px;color:rgba(255,255,255,0.3);font-size:13px;cursor:pointer;margin-top:10px;transition:all 0.2s;" onmouseover="this.style.borderColor='rgba(255,255,255,0.2)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.08)'">
+        Fechar
+      </button>
+    </div>
+  </div>
+
+  <!-- LEADS GRID -->
+  <div id="_adm-leads" style="display:none;padding:40px 24px 80px;max-width:1300px;margin:0 auto;">
+
+    <!-- Header -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:6px;">SAGRADO HOMEM 2027</div>
+        <h2 style="font-size:24px;font-weight:900;color:#fff;margin:0;">Leads Captados</h2>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div id="_adm-count" style="font-size:13px;color:rgba(255,255,255,0.4);"></div>
+        <button onclick="_admRefresh()" style="background:rgba(26,182,0,0.12);border:1px solid rgba(26,182,0,0.3);border-radius:9999px;padding:8px 18px;color:#1ab600;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.06em;transition:all 0.2s;" onmouseover="this.style.background='rgba(26,182,0,0.2)'" onmouseout="this.style.background='rgba(26,182,0,0.12)'">
+          ↻ Atualizar
+        </button>
+        <button onclick="_admClose()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:9999px;padding:8px 18px;color:rgba(255,255,255,0.5);font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.06em;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+          ✕ Fechar
+        </button>
+      </div>
+    </div>
+
+    <!-- Tabela wrapper -->
+    <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:rgba(8,8,8,0.9);">
+      <div style="overflow-x:auto;">
+        <div id="_adm-table">
+          <div style="padding:60px;text-align:center;color:rgba(255,255,255,0.3);font-size:13px;">Carregando...</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ===== CONFIGURAÇÃO SUPABASE =====
+  // PASSO 1: Cole aqui a URL e chave do seu projeto Supabase
+  const _SB_URL  = 'COLE_AQUI_SUA_SUPABASE_URL';
+  const _SB_KEY  = 'COLE_AQUI_SUA_SUPABASE_ANON_KEY';
+  const _sb = supabase.createClient(_SB_URL, _SB_KEY);
+
+  // ===== CREDENCIAIS DO PAINEL (ofuscadas) =====
+  // Nunca aparecem como texto legível no código
+  const _c1 = [114,111,100,115];                          // usuário
+  const _c2 = [76,111,115,116,52,56,55,53,36];            // senha UI
+  // PASSO 2: Cole abaixo o email e a senha do usuário admin que você criar no Supabase Auth
+  // Para gerar os arrays: no console do browser, execute:
+  //   [...'seu@email.com'].map(c=>c.charCodeAt(0)).join(',')
+  //   [...'suasenha'].map(c=>c.charCodeAt(0)).join(',')
+  const _c3 = [/* COLE OS CHAR CODES DO EMAIL ADMIN AQUI */];
+  const _c4 = [/* COLE OS CHAR CODES DA SENHA ADMIN AQUI */];
+
+  function _dc(a){return a.map(n=>String.fromCharCode(n)).join('')}
+
+  // ===== ENGRENAGEM OCULTA =====
+  const _gear = document.getElementById('_g');
+  let _gt = null;
+
+  _gear.addEventListener('mouseenter', function() {
+    _gt = setTimeout(function() {
+      _gear.style.opacity = '0.2';
+      _gear.style.cursor = 'pointer';
+    }, 1400);
+  });
+
+  _gear.addEventListener('mouseleave', function() {
+    clearTimeout(_gt);
+    _gear.style.opacity = '0';
+    _gear.style.cursor = 'default';
+  });
+
+  _gear.addEventListener('click', function() {
+    if (_gear.style.opacity !== '0') _admOpen();
+  });
+
+  // ===== ADMIN — ABRIR / FECHAR =====
+  function _admOpen() {
+    document.getElementById('_adm').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ document.getElementById('_au').focus(); }, 100);
+  }
+
+  function _admClose() {
+    document.getElementById('_adm').style.display = 'none';
+    document.body.style.overflow = '';
+    document.getElementById('_adm-login').style.display = 'block';
+    document.getElementById('_adm-leads').style.display = 'none';
+    document.getElementById('_au').value = '';
+    document.getElementById('_ap').value = '';
+    document.getElementById('_adm-err').style.display = 'none';
+    _gear.style.opacity = '0';
+    _gear.style.cursor = 'default';
+  }
+
+  // ===== ADMIN — LOGIN =====
+  async function _admLogin() {
+    const u = document.getElementById('_au').value.trim();
+    const p = document.getElementById('_ap').value;
+    const err = document.getElementById('_adm-err');
+    const btn = document.getElementById('_adm-btn');
+
+    err.style.display = 'none';
+
+    // Verifica credenciais locais (char codes — não são texto legível no source)
+    if (u !== _dc(_c1) || p !== _dc(_c2)) {
+      err.style.display = 'block';
+      document.getElementById('_ap').value = '';
+      document.getElementById('_ap').focus();
+      return;
+    }
+
+    btn.textContent = 'Autenticando...';
+    btn.disabled = true;
+
+    // Autentica no Supabase com o usuário admin
+    const { data: authData, error: authErr } = await _sb.auth.signInWithPassword({
+      email: _dc(_c3),
+      password: _dc(_c4)
+    });
+
+    if (authErr) {
+      err.textContent = 'Erro na autenticação. Verifique a configuração.';
+      err.style.display = 'block';
+      btn.textContent = 'Entrar';
+      btn.disabled = false;
+      return;
+    }
+
+    // Busca os leads
+    await _admLoadLeads();
+  }
+
+  // ===== ADMIN — CARREGAR LEADS =====
+  async function _admLoadLeads() {
+    document.getElementById('_adm-login').style.display = 'none';
+    document.getElementById('_adm-leads').style.display = 'block';
+    document.getElementById('_adm-btn').textContent = 'Entrar';
+    document.getElementById('_adm-btn').disabled = false;
+
+    const { data: leads, error } = await _sb
+      .from('sh_leads')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      document.getElementById('_adm-table').innerHTML =
+        '<div style="padding:40px;text-align:center;color:#f87171;font-size:13px;">Erro ao carregar leads: ' + error.message + '</div>';
+      return;
+    }
+
+    _renderLeads(leads || []);
+  }
+
+  async function _admRefresh() {
+    document.getElementById('_adm-table').innerHTML =
+      '<div style="padding:60px;text-align:center;color:rgba(255,255,255,0.3);font-size:13px;">Atualizando...</div>';
+    await _admLoadLeads();
+  }
+
+  // ===== ADMIN — RENDERIZAR TABELA =====
+  function _renderLeads(leads) {
+    const count = document.getElementById('_adm-count');
+    count.textContent = leads.length + (leads.length === 1 ? ' lead' : ' leads');
+
+    if (leads.length === 0) {
+      document.getElementById('_adm-table').innerHTML =
+        '<div style="padding:80px;text-align:center;color:rgba(255,255,255,0.25);font-size:14px;">Nenhum lead ainda. Os homens vêm.</div>';
+      return;
+    }
+
+    const rows = leads.map(function(l, i) {
+      const dt = new Date(l.created_at);
+      const data = dt.toLocaleDateString('pt-BR') + '<br><span style="color:rgba(255,255,255,0.3);font-size:11px;">' + dt.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'}) + '</span>';
+      const resposta = l.resposta ? _esc(l.resposta) : '<span style="color:rgba(255,255,255,0.2)">—</span>';
+      const celular = l.celular ? _fmt(l.celular) : '—';
+      const num = leads.length - i;
+
+      return '<tr>' +
+        '<td style="color:rgba(255,255,255,0.3);font-size:11px;text-align:center;width:36px;">' + num + '</td>' +
+        '<td style="white-space:nowrap;">' + data + '</td>' +
+        '<td style="font-weight:600;color:#fff;white-space:nowrap;">' + _esc(l.nome || '—') + '</td>' +
+        '<td style="white-space:nowrap;font-family:monospace;font-size:12px;">' + celular + '</td>' +
+        '<td style="font-size:12px;color:rgba(204,255,0,0.8);">' + _esc(l.email || '—') + '</td>' +
+        '<td class="_resp">' + resposta + '</td>' +
+      '</tr>';
+    }).join('');
+
+    document.getElementById('_adm-table').innerHTML =
+      '<table class="_at">' +
+        '<thead><tr>' +
+          '<th>#</th><th>Data</th><th>Nome</th><th>Celular</th><th>Email</th><th>Resposta</th>' +
+        '</tr></thead>' +
+        '<tbody>' + rows + '</tbody>' +
+      '</table>';
+  }
+
+  function _esc(s) {
+    return String(s)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+
+  function _fmt(c) {
+    const d = String(c).replace(/\D/g,'');
+    if (d.length === 11) return '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
+    if (d.length === 10) return '(' + d.slice(0,2) + ') ' + d.slice(2,6) + '-' + d.slice(6);
+    return c;
+  }
+
+  // ===== MÁSCARA CELULAR =====
+  const celularInput = document.getElementById('celular');
+  celularInput.addEventListener('input', function(e) {
+    let val = e.target.value.replace(/\D/g, '').slice(0, 11);
+    if (val.length === 0) { e.target.value = ''; return; }
+    if (val.length <= 2) val = '(' + val;
+    else if (val.length <= 7) val = '(' + val.slice(0,2) + ') ' + val.slice(2);
+    else if (val.length <= 11) val = '(' + val.slice(0,2) + ') ' + val.slice(2,7) + '-' + val.slice(7);
+    e.target.value = val;
+  });
+
+  // ===== CONTADOR DE CARACTERES =====
+  const respostaInput = document.getElementById('resposta');
+  const charCounter = document.getElementById('char-counter');
+  respostaInput.addEventListener('input', function() {
+    const len = this.value.length;
+    charCounter.textContent = len + ' / 1000';
+    charCounter.classList.remove('warn', 'over');
+    if (len > 900) charCounter.classList.add('over');
+    else if (len > 700) charCounter.classList.add('warn');
+  });
+
+  // ===== CHECKBOX CUSTOMIZADO =====
+  const checkInput = document.getElementById('aceite');
+  const checkBox = document.getElementById('check-box');
+  checkInput.addEventListener('change', function() {
+    if (this.checked) {
+      checkBox.style.background = '#1ab600';
+      checkBox.style.borderColor = '#1ab600';
+      checkBox.innerHTML = '<svg class="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+    } else {
+      checkBox.style.background = 'rgba(255,255,255,0.04)';
+      checkBox.style.borderColor = 'rgba(255,255,255,0.25)';
+      checkBox.innerHTML = '';
+    }
+  });
+  checkBox.parentElement.addEventListener('click', function() {
+    checkInput.checked = !checkInput.checked;
+    checkInput.dispatchEvent(new Event('change'));
+  });
+
+  // ===== VALIDAÇÃO =====
+  function showError(id, show) {
+    const el = document.getElementById(id + '-error');
+    const input = document.getElementById(id);
+    if (show) {
+      el.classList.add('show');
+      if (input) input.classList.add('error');
+    } else {
+      el.classList.remove('show');
+      if (input) input.classList.remove('error');
+    }
+  }
+
+  function validate() {
+    let ok = true;
+
+    const nome = document.getElementById('nome').value.trim();
+    if (nome.length < 2) { showError('nome', true); ok = false; } else showError('nome', false);
+
+    const celular = document.getElementById('celular').value.replace(/\D/g,'');
+    if (celular.length < 10) { showError('celular', true); ok = false; } else showError('celular', false);
+
+    const email = document.getElementById('email').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('email', true); ok = false; } else showError('email', false);
+
+    const resposta = document.getElementById('resposta').value.trim();
+    if (resposta.length < 30) { showError('resposta', true); ok = false; } else showError('resposta', false);
+
+    const aceite = document.getElementById('aceite').checked;
+    if (!aceite) { showError('aceite', true); ok = false; } else showError('aceite', false);
+
+    return ok;
+  }
+
+  // ===== SUBMIT — SALVA NO SUPABASE =====
+  document.getElementById('lead-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (!validate()) return;
+
+    const btn = document.getElementById('btn-submit');
+    const btnText = document.getElementById('btn-text');
+    const btnLoading = document.getElementById('btn-loading');
+
+    btn.disabled = true;
+    btnText.classList.add('hidden');
+    btnLoading.classList.remove('hidden');
+
+    const payload = {
+      nome: document.getElementById('nome').value.trim(),
+      celular: document.getElementById('celular').value.replace(/\D/g,''),
+      email: document.getElementById('email').value.trim(),
+      resposta: document.getElementById('resposta').value.trim(),
+      origem: 'sh2027-captacao',
+    };
+
+    try {
+      const { error } = await _sb.from('sh_leads').insert([payload]);
+      if (error) throw error;
+    } catch(err) {
+      // Se Supabase não estiver configurado ainda, mostra sucesso mesmo assim
+      // (remova o catch após configurar o Supabase)
+      console.warn('[SH27] Supabase não configurado ou erro:', err);
+    }
+
+    // Exibe sucesso
+    document.getElementById('lead-form').style.display = 'none';
+    document.getElementById('success-card').classList.add('show');
+    document.getElementById('form-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Limpar erro ao digitar
+  ['nome','celular','email','resposta'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', function(){ showError(id, false); });
+  });
+</script>
+
+</body>
+</html>
