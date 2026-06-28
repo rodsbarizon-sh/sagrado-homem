@@ -37,9 +37,9 @@
     @keyframes shimmer { 0%{left:-100%} 100%{left:200%} }
     .btn-shimmer::after { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent); transform:skewX(-20deg); animation:shimmer 3s infinite; }
     /* Tab content */
-    .tab-wrapper { position: relative; min-height: 280px; }
-    .tab-content { display: block; position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-    .tab-content.active { opacity: 1; pointer-events: auto; position: relative; }
+    .tab-wrapper { position: relative; height: 320px; }
+    .tab-content { display: block; position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; overflow-y: auto; }
+    .tab-content.active { opacity: 1; pointer-events: auto; }
     .tab-btn.active { background: #1ab600; color: #000; }
 
     /* Fundo animado Ken Burns — fallback offline */
