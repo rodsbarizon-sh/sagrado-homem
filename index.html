@@ -763,9 +763,9 @@
     window.addEventListener('resize', setTabHeight);
   })();
 
-  // Countdown to 2026-02-14
+  // Countdown to 2027-02-06
   function updateCountdown() {
-    const target = new Date('2026-02-14T08:00:00-03:00').getTime();
+    const target = new Date('2027-02-06T08:00:00-03:00').getTime();
     const now = Date.now();
     const diff = target - now;
     if (diff <= 0) { ['cd-days','cd-hours','cd-min','cd-sec'].forEach(id => document.getElementById(id).textContent = '00'); return; }
