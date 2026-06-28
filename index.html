@@ -5,47 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sagrado Homem - Retiro de Transformação Masculina</title>
   <meta name="description" content="Retiro de transformação masculina com ayahuasca. 4 dias de imersão que unem Medicina Ancestral, Ayahuasca e Neurociência. Tudo incluso: alimentação, hospedagem e mudança de vida.">
-
-  <!-- Fonts -->
+  <link rel="icon" href="https://sagradohomem.net.br/favicon/favicon.ico" sizes="any">
+  <link rel="icon" href="https://sagradohomem.net.br/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="https://sagradohomem.net.br/favicon/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&family=Titillium+Web:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    :root {
-      --color-verde: #1ab600;
-      --color-verde-claro: #ccff00;
-      --color-amarelo: #fdff00;
-      --color-preto: #000;
-      --color-branco: #fff;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: #000;
-      color: #fff;
-      font-family: 'Roboto', 'Inter', system-ui, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Animações */
-    @keyframes pulse { 50% { opacity: 0.5; } }
-    @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8,0,1,1); }
-      50% { transform: none; animation-timing-function: cubic-bezier(0,0,0.2,1); }
-    }
-
-    .animate-pulse { animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite; }
-    .animate-ping { animation: ping 1s cubic-bezier(0,0,.2,1) infinite; }
-
-    /* Custom cores via Tailwind config abaixo */
-  </style>
-
   <script>
     tailwind.config = {
       theme: {
@@ -54,576 +20,688 @@
             verde: '#1ab600',
             'verde-claro': '#ccff00',
             amarelo: '#fdff00',
-            preto: '#000',
+            preto: '#0a0a0a',
             branco: '#fff',
-          },
-          fontFamily: {
-            sans: ['Roboto', 'Inter', 'system-ui', 'sans-serif'],
           }
         }
       }
     }
   </script>
+  <style>
+    body { font-family: 'Roboto', 'Inter', system-ui, sans-serif; background: #0a0a0a; }
+    @keyframes pulse2 { 0%,100%{opacity:1} 50%{opacity:.5} }
+    @keyframes ping2 { 75%,100%{transform:scale(2);opacity:0} }
+    .animate-pulse { animation: pulse2 2s cubic-bezier(.4,0,.6,1) infinite; }
+    .animate-ping { animation: ping2 1s cubic-bezier(0,0,.2,1) infinite; }
+    /* Shimmer on CTA button */
+    @keyframes shimmer { 0%{left:-100%} 100%{left:200%} }
+    .btn-shimmer::after { content:''; position:absolute; top:0; left:-100%; width:50%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent); transform:skewX(-20deg); animation:shimmer 3s infinite; }
+    /* Tab content */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .tab-btn.active { background: #1ab600; color: #000; }
+
+    /* Fundo animado Ken Burns — fallback offline */
+    @keyframes kenBurns {
+      0%   { transform: scale(1)    translateX(0%)   translateY(0%); }
+      25%  { transform: scale(1.08) translateX(-2%)  translateY(-1%); }
+      50%  { transform: scale(1.12) translateX(2%)   translateY(-2%); }
+      75%  { transform: scale(1.06) translateX(-1%)  translateY(1%); }
+      100% { transform: scale(1)    translateX(0%)   translateY(0%); }
+    }
+    @keyframes colorShift {
+      0%,100% { filter: brightness(0.85) saturate(1.1) hue-rotate(0deg); }
+      33%      { filter: brightness(0.9)  saturate(1.3) hue-rotate(8deg); }
+      66%      { filter: brightness(0.8)  saturate(1.0) hue-rotate(-5deg); }
+    }
+    .aceleradores-bg {
+      background-image: url('https://sagradohomem.net.br/images/meditacao.webp');
+      background-size: cover;
+      background-position: center;
+      animation: kenBurns 20s ease-in-out infinite, colorShift 20s ease-in-out infinite;
+      will-change: transform;
+    }
+  </style>
 </head>
-<body class="antialiased">
+<body class="antialiased text-white overflow-x-hidden">
 
-<!-- ============================================================
-     HERO SECTION
-     ============================================================ -->
-<main class="min-h-screen bg-black text-white overflow-x-hidden">
-
-  <section class="relative min-h-screen overflow-hidden flex flex-col justify-center py-4 sm:py-6 md:py-8 lg:py-0">
-
-    <!-- Background image -->
-    <div class="absolute inset-0 z-0">
-      <img
-        alt="Background"
-        src="https://sagradohomem.net.br/images/hero-bg.webp"
-        class="object-cover object-center opacity-60 w-full h-full"
-        style="position:absolute;inset:0;"
-      >
+<!-- ========== LOADING SCREEN ========== -->
+<div id="loading-screen" class="fixed inset-0 z-[9999] bg-preto flex flex-col items-center justify-center">
+  <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+    <img src="https://sagradohomem.net.br/images/logo-prisma.webp" alt="Carregando..." class="w-full h-full object-contain animate-pulse">
+    <div class="absolute inset-0 rounded-full bg-verde/20 blur-[60px] animate-ping" style="animation-duration:2s"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div class="absolute w-32 h-1 bg-gradient-to-r from-verde to-transparent origin-left animate-pulse" style="transform:rotate(-20deg) translateX(40px);animation-delay:0s;animation-duration:1.5s"></div>
+      <div class="absolute w-28 h-1 bg-gradient-to-r from-yellow-400 to-transparent origin-left animate-pulse" style="transform:rotate(-10deg) translateX(40px);animation-delay:0.2s;animation-duration:1.5s"></div>
+      <div class="absolute w-24 h-1 bg-gradient-to-r from-orange-500 to-transparent origin-left animate-pulse" style="transform:rotate(0deg) translateX(40px);animation-delay:0.4s;animation-duration:1.5s"></div>
+      <div class="absolute w-28 h-1 bg-gradient-to-r from-cyan-400 to-transparent origin-left animate-pulse" style="transform:rotate(15deg) translateX(40px);animation-delay:0.6s;animation-duration:1.5s"></div>
     </div>
-    <!-- Gradientes overlay -->
-    <div class="absolute inset-0 z-[1] bg-gradient-to-b from-black/30 via-transparent to-black"></div>
-    <div class="absolute inset-0 z-[1]" style="background:radial-gradient(circle at center,transparent 0%,rgba(0,0,0,0.6) 100%)"></div>
+  </div>
+  <p class="mt-8 text-white/80 text-base sm:text-lg font-light tracking-widest animate-pulse">Passando pelo prisma...</p>
+</div>
 
-    <div class="relative z-10 container mx-auto px-4 pt-6 sm:pt-10 md:pt-16 lg:pt-20" style="max-width:80rem;">
+<main class="min-h-screen bg-preto text-white overflow-x-hidden">
 
-      <!-- Logo -->
-      <div class="flex justify-center mb-4 sm:mb-6 lg:mb-8">
-        <img
-          alt="Sagrado Homem"
-          src="https://sagradohomem.net.br/images/logo.webp"
-          class="h-8 sm:h-10 lg:h-16 object-contain"
-          style="filter:drop-shadow(0 0 15px rgba(255,255,255,0.3))"
-        >
-      </div>
-
-      <!-- Headline -->
-      <div class="text-center max-w-6xl mx-auto mb-6 sm:mb-8">
-        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6 max-w-5xl mx-auto leading-tight" style="text-shadow:0 2px 20px rgba(0,0,0,0.5)">
-          Neste Carnaval, enquanto a maioria foge da realidade, <br class="hidden lg:block">
-          <span class="text-transparent bg-clip-text font-extrabold" style="background-image:linear-gradient(to right,#1ab600,#ccff00);-webkit-background-clip:text;">você vai encarar a sua.</span>
-        </h1>
-
-        <h2 class="text-lg sm:text-xl lg:text-2xl font-medium text-gray-200 leading-relaxed mb-8 max-w-3xl mx-auto flex flex-wrap justify-center items-center gap-2">
-          4 Dias para transformar o
-          <span class="bg-white/10 border border-white/20 text-gray-300 px-2 py-0.5 rounded font-medium inline-block -rotate-3 mx-1">menino ferido</span>
-          e despertar o
-          <span class="text-black px-3 py-1 rounded font-black shadow-lg inline-block mx-1 uppercase tracking-wider" style="background:#1ab600;box-shadow:0 0 20px rgba(204,255,0,0.4)">Homem</span>
-        </h2>
-
-        <p class="text-white text-xs sm:text-sm lg:text-lg font-medium mb-4 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
-          O único método que une <strong style="color:#ccff00">Neurociência Avançada</strong> e <strong style="color:#ccff00">Sabedoria Ancestral</strong>.
-        </p>
-      </div>
-
-      <!-- Vídeo embed -->
-      <div class="mb-6 sm:mb-8 relative sm:max-w-4xl lg:max-w-5xl -mx-4 sm:mx-auto">
-        <div class="relative rounded-none sm:rounded-xl overflow-hidden shadow-lg sm:shadow-2xl" style="box-shadow:0 0 40px rgba(26,182,0,0.1)">
-          <div class="relative w-full rounded-none sm:rounded-lg overflow-hidden bg-black aspect-video">
-            <iframe
-              class="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/-UkHE4cct6A?autoplay=1&mute=1&loop=1&playlist=-UkHE4cct6A&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
-              frameborder="0"
-              allow="autoplay; fullscreen; encrypted-media"
-              allowfullscreen
-              title="Sagrado Homem - Vídeo"
-            ></iframe>
-          </div>
-        </div>
-      </div>
-
-      <!-- Infos + CTA -->
-      <div class="flex flex-col items-center gap-3 sm:gap-4 pb-4 sm:pb-8">
-
-        <!-- Info card -->
-        <div class="w-full max-w-4xl mx-auto mb-6 sm:mb-10">
-          <div class="relative rounded-xl sm:rounded-2xl overflow-hidden p-[1px]" style="background:linear-gradient(to right,transparent,rgba(26,182,0,0.3),transparent)">
-            <div class="relative bg-black/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center gap-4 sm:gap-6">
-              <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 w-full border-b border-white/10 pb-4 sm:pb-6 md:pb-0 sm:border-none">
-                <div class="flex items-center gap-2 sm:gap-3">
-                  <div class="p-1.5 sm:p-2 rounded-lg" style="background:rgba(26,182,0,0.1)">
-                    <svg class="w-5 h-5" style="color:#1ab600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
-                  </div>
-                  <span class="text-white font-bold text-sm sm:text-lg">14 a 17 de fevereiro de 2026</span>
+<!-- ========== HERO ========== -->
+<section class="relative min-h-screen overflow-hidden flex flex-col justify-center py-4 sm:py-6 md:py-8 lg:py-0">
+  <div class="absolute inset-0 z-0">
+    <img alt="Background" class="object-cover object-center opacity-60 w-full h-full" style="position:absolute;inset:0" src="https://sagradohomem.net.br/images/hero-bg.webp">
+  </div>
+  <div class="absolute inset-0 z-[1] bg-gradient-to-b from-black/30 via-transparent to-black"></div>
+  <div class="absolute inset-0 z-[1]" style="background:radial-gradient(circle at center,transparent 0%,rgba(0,0,0,0.6) 100%)"></div>
+  <div class="relative z-10 container mx-auto px-4 pt-6 sm:pt-10 md:pt-16 lg:pt-20" style="max-width:80rem">
+    <div class="flex justify-center mb-4 sm:mb-6 lg:mb-8">
+      <img alt="Sagrado Homem" class="h-8 sm:h-10 lg:h-16 object-contain" style="filter:drop-shadow(0 0 15px rgba(255,255,255,0.3))" src="https://sagradohomem.net.br/images/logo.webp">
+    </div>
+    <div class="text-center max-w-6xl mx-auto mb-6 sm:mb-8">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6 max-w-5xl mx-auto leading-tight" style="text-shadow:0 2px 20px rgba(0,0,0,.5)">
+        Neste Carnaval, enquanto a maioria foge da realidade, <br class="hidden lg:block">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-verde to-verde-claro font-extrabold" style="-webkit-background-clip:text">você vai encarar a sua.</span>
+      </h1>
+      <h2 class="text-lg sm:text-xl lg:text-2xl font-medium text-gray-200 leading-relaxed mb-8 max-w-3xl mx-auto flex flex-wrap justify-center items-center gap-2">
+        4 Dias para transformar o
+        <span class="bg-white/10 border border-white/20 text-gray-300 px-2 py-0.5 rounded font-medium inline-block -rotate-3 mx-1">menino ferido</span>
+        e despertar o
+        <span class="text-black bg-verde px-3 py-1 rounded font-black shadow-[0_0_20px_rgba(204,255,0,0.4)] inline-block mx-1 uppercase tracking-wider">Homem</span>
+      </h2>
+      <p class="text-white text-xs sm:text-sm lg:text-lg font-medium mb-4 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
+        Passe pelo <img alt="Prisma" class="inline h-4 sm:h-5 lg:h-6 w-auto align-middle" src="https://sagradohomem.net.br/images/prisma-escrito.webp"> → O único método que une <strong class="text-verde-claro">Neurociência Avançada</strong> e <strong class="text-verde-claro">Sabedoria Ancestral</strong>.
+      </p>
+    </div>
+    <!-- Vídeo -->
+    <div class="mb-6 sm:mb-8 relative sm:max-w-4xl lg:max-w-5xl -mx-4 sm:mx-auto">
+      <div class="relative rounded-none sm:rounded-xl overflow-hidden shadow-lg sm:shadow-2xl sm:p-[1px] sm:bg-gradient-to-b sm:from-white/20 sm:to-white/5">
+        <div class="relative w-full rounded-none sm:rounded-lg overflow-hidden bg-black aspect-video">
+          <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/-UkHE4cct6A?autoplay=1&mute=1&loop=1&playlist=-UkHE4cct6A&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="Sagrado Homem - Vídeo"></iframe>
+          <div class="absolute inset-0 flex items-center justify-center cursor-pointer z-20" id="sound-btn" onclick="document.getElementById('sound-btn').style.display='none'">
+            <div class="group relative hover:scale-105 active:scale-95 transition-transform">
+              <div class="relative flex items-center gap-3 sm:gap-5 bg-gradient-to-r from-verde to-[#159a00] px-4 sm:px-8 py-3 sm:py-5 rounded-full shadow-[0_10px_40px_rgba(26,182,0,0.4)] border border-white/20">
+                <div class="bg-black/20 p-2 sm:p-3 rounded-full">
+                  <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="22" x2="16" y1="9" y2="15"></line><line x1="16" x2="22" y1="9" y2="15"></line></svg>
                 </div>
-                <div class="hidden sm:block h-8 w-px" style="background:linear-gradient(to bottom,transparent,rgba(26,182,0,0.5),transparent)"></div>
-                <div class="flex items-center gap-2 sm:gap-3">
-                  <div class="p-1.5 sm:p-2 rounded-lg" style="background:rgba(26,182,0,0.1)">
-                    <svg class="w-5 h-5" style="color:#1ab600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-                  </div>
-                  <span class="text-white font-bold text-sm sm:text-lg">A 50 minutos da Capital</span>
-                </div>
-              </div>
-              <div class="flex flex-wrap justify-center gap-x-4 sm:gap-x-8 gap-y-2 sm:gap-y-3 w-full">
-                <div class="flex items-center gap-1.5 sm:gap-2">
-                  <svg class="w-4 h-4" style="color:#ccff00" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  <span class="text-gray-200 font-medium text-xs sm:text-sm md:text-base">Tudo incluso: alimentação e hospedagem</span>
-                </div>
-                <div class="flex items-center gap-1.5 sm:gap-2">
-                  <svg class="w-4 h-4" style="color:#ccff00" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                  <span class="text-gray-200 font-medium text-xs sm:text-sm md:text-base">Mudança de vida real</span>
+                <div class="flex flex-col items-start pr-2">
+                  <span class="text-white font-black text-sm sm:text-xl uppercase tracking-tight leading-none mb-1">Seu vídeo já começou!</span>
+                  <span class="text-white/90 font-medium text-xs sm:text-sm tracking-wide">Clique para ativar o som</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Botão CTA principal -->
-        <button type="button" class="group relative inline-flex items-center justify-center gap-2 sm:gap-3 text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 rounded-full overflow-hidden transition-all duration-300 border cursor-pointer"
-          style="background:linear-gradient(to bottom,#2ad100,#148f00);box-shadow:0 0 40px rgba(26,182,0,0.6);border-color:rgba(204,255,0,0.3);"
-          onmouseover="this.style.boxShadow='0 0 60px rgba(26,182,0,0.8)';this.style.transform='translateY(-4px)'"
-          onmouseout="this.style.boxShadow='0 0 40px rgba(26,182,0,0.6)';this.style.transform='translateY(0)'"
-        >
-          <div class="absolute inset-x-0 top-0 h-[2px]" style="background:linear-gradient(to right,transparent,rgba(204,255,0,0.5),transparent)"></div>
-          <span class="relative z-10 uppercase tracking-wider">Quero Participar da Imersão</span>
-          <svg class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-        </button>
-
-        <!-- Trust badges -->
-        <div class="flex items-center gap-4 sm:gap-6 mt-2">
-          <div class="flex items-center gap-1.5 sm:gap-2 opacity-80">
-            <svg class="w-4 h-4" style="color:#ccff00" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-            <span class="text-xs sm:text-sm text-white font-medium">Pagamento Seguro</span>
-          </div>
-          <div class="flex items-center gap-1.5 sm:gap-2 opacity-80">
-            <svg class="w-4 h-4" style="color:#ccff00" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"></path><path d="M11 12 5.12 2.2"></path><path d="m13 12 5.88-9.8"></path><path d="M8 7h8"></path><circle cx="12" cy="17" r="5"></circle><path d="M12 18v-2h-.5"></path></svg>
-            <span class="text-xs sm:text-sm text-white font-medium">Garantia de 7 dias</span>
-          </div>
-        </div>
-
       </div>
     </div>
-  </section>
-
-  <!-- ============================================================
-       SEÇÃO - VOCÊ TEM SE SENTIDO ASSIM?
-       ============================================================ -->
-  <section class="relative py-8 sm:py-16 lg:py-16 overflow-hidden" style="background:#050505">
-    <div class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image:url('https://sagradohomem.net.br/images/bg-problema.webp')"></div>
-    <div class="absolute inset-0 z-[1]" style="background:linear-gradient(to bottom,black,rgba(0,0,0,0.5),rgba(0,0,0,0.9))"></div>
-    <div class="absolute top-0 left-0 w-full h-32 sm:h-48 z-20 pointer-events-none" style="background:linear-gradient(to bottom,black,transparent)"></div>
-
-    <div class="relative z-10 container mx-auto px-4 sm:px-4" style="max-width:64rem;">
-      <div class="max-w-4xl mx-auto">
-
-        <div class="text-center mb-4 sm:mb-8">
-          <h2 class="text-2xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight mb-2">Você tem se sentido assim?</h2>
+    <!-- Info + CTA -->
+    <div class="flex flex-col items-center gap-3 sm:gap-4 pb-4 sm:pb-8">
+      <div class="w-full max-w-4xl mx-auto mb-6 sm:mb-10">
+        <div class="relative rounded-xl sm:rounded-2xl overflow-hidden p-[1px] bg-gradient-to-r from-transparent via-verde/30 to-transparent">
+          <div class="relative bg-black/60 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center gap-4 sm:gap-6">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 w-full border-b border-white/10 pb-4 sm:pb-6 md:pb-0 sm:border-none">
+              <div class="flex items-center gap-2 sm:gap-3">
+                <div class="p-1.5 sm:p-2 bg-verde/10 rounded-lg"><svg class="w-5 h-5 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg></div>
+                <span class="text-white font-bold text-sm sm:text-lg">14 a 17 de fevereiro de 2026</span>
+              </div>
+              <div class="hidden sm:block h-8 w-px bg-gradient-to-b from-transparent via-verde/50 to-transparent"></div>
+              <div class="flex items-center gap-2 sm:gap-3">
+                <div class="p-1.5 sm:p-2 bg-verde/10 rounded-lg"><svg class="w-5 h-5 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+                <span class="text-white font-bold text-sm sm:text-lg">A 50 minutos da Capital</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-x-4 sm:gap-x-8 gap-y-2 sm:gap-y-3 w-full">
+              <div class="flex items-center gap-1.5 sm:gap-2"><svg class="w-4 h-4 text-verde-claro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span class="text-gray-200 font-medium text-xs sm:text-sm md:text-base">Tudo incluso: alimentação e hospedagem</span></div>
+              <div class="flex items-center gap-1.5 sm:gap-2"><svg class="w-4 h-4 text-verde-claro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span class="text-gray-200 font-medium text-xs sm:text-sm md:text-base">Mudança de vida real</span></div>
+            </div>
+          </div>
         </div>
+      </div>
+      <button onclick="window.open('https://payment.ticto.app/O49C521C7','_blank')" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.6)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] hover:-translate-y-1 transition-all duration-300 border border-verde-claro/30 cursor-pointer">
+        <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-verde-claro/50 to-transparent"></div>
+        <span class="relative z-10 uppercase tracking-wider">Quero Participar da Imersão</span>
+        <svg class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+      </button>
+      <div class="flex items-center gap-4 sm:gap-6 mt-2">
+        <div class="flex items-center gap-1.5 sm:gap-2 opacity-80"><svg class="w-4 h-4 text-verde-claro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><span class="text-xs sm:text-sm text-white font-medium">Pagamento Seguro</span></div>
+        <div class="flex items-center gap-1.5 sm:gap-2 opacity-80"><svg class="w-4 h-4 text-verde-claro" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.21 15 2.66 7.14a2 2 0 0 1 .13-2.2L4.4 2.8A2 2 0 0 1 6 2h12a2 2 0 0 1 1.6.8l1.6 2.14a2 2 0 0 1 .14 2.2L16.79 15"></path><path d="M11 12 5.12 2.2"></path><path d="m13 12 5.88-9.8"></path><path d="M8 7h8"></path><circle cx="12" cy="17" r="5"></circle><path d="M12 18v-2h-.5"></path></svg><span class="text-xs sm:text-sm text-white font-medium">Garantia de 7 dias</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="border border-white/20 rounded-2xl p-4 lg:p-8 shadow-2xl mb-8" style="background:rgba(10,10,10,0.95)">
+<!-- ========== VOCÊ TEM SE SENTIDO ASSIM? ========== -->
+<section class="relative py-8 sm:py-16 lg:py-16 bg-[#050505] overflow-hidden">
+  <div class="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style="background-image:url('https://sagradohomem.net.br/images/bg-problema.webp')"></div>
+  <div class="absolute inset-0 z-[1] bg-gradient-to-b from-black via-black/50 to-black/90"></div>
+  <div class="absolute top-0 left-0 w-full h-32 sm:h-48 bg-gradient-to-b from-black to-transparent z-20 pointer-events-none"></div>
+  <div class="relative z-10 container mx-auto px-4" style="max-width:56rem">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-4 sm:mb-8"><h2 class="text-2xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight mb-2">Você tem se sentido assim?</h2></div>
+      <div class="bg-[#0A0A0A]/95 border border-white/20 rounded-2xl p-4 lg:p-8 shadow-2xl mb-8">
+        <div class="space-y-2 sm:space-y-4" id="checklist">
+          <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg cursor-pointer transition-colors hover:bg-white/5 border border-transparent" onclick="toggleCheck(this)">
+            <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40 transition-colors"></div>
+            <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Já se viu explodindo de raiva com quem ama, seguido de um arrependimento profundo?</p>
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg cursor-pointer transition-colors hover:bg-white/5 border border-transparent" onclick="toggleCheck(this)">
+            <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40 transition-colors"></div>
+            <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Sente que diz sim para tudo e perdeu o respeito das pessoas?</p>
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg cursor-pointer transition-colors hover:bg-white/5 border border-transparent" onclick="toggleCheck(this)">
+            <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40 transition-colors"></div>
+            <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Está presente de corpo, mas a mente está em outro lugar?</p>
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg cursor-pointer transition-colors hover:bg-white/5 border border-transparent" onclick="toggleCheck(this)">
+            <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40 transition-colors"></div>
+            <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Viciado em pornografia, trabalho ou comida sem conseguir fugir do vazio?</p>
+          </div>
+          <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg cursor-pointer transition-colors hover:bg-white/5 border border-transparent" onclick="toggleCheck(this)">
+            <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40 transition-colors"></div>
+            <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Você até conquistou alguma coisa, mas sente que falta algo?</p>
+          </div>
+        </div>
+        <div class="mt-4 text-center"><span class="text-xs sm:text-sm font-mono text-gray-500 uppercase tracking-widest">Toque para marcar os itens</span></div>
+      </div>
+      <div class="text-center max-w-3xl mx-auto">
+        <h3 class="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-8">Acredite: isso é uma <span class="text-verde">epidemia</span>.</h3>
+        <div class="max-w-xl mx-auto text-left mb-4 sm:mb-8"><p class="text-white text-base sm:text-lg leading-relaxed">Nosso cérebro evoluiu para sobreviver, não para viver. Você cresceu, ficou bom no que faz, mas está preso em loop:</p></div>
+        <!-- WhatsApp mockup -->
+        <div class="bg-[#0b141a] border border-white/10 rounded-2xl overflow-hidden mb-8 text-left shadow-lg max-w-sm sm:max-w-md mx-auto">
+          <div class="bg-[#202c33] px-4 py-3 flex items-center gap-3 border-b border-white/5">
+            <div class="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white text-xs font-bold">EU</div>
+            <div class="flex flex-col"><span class="text-white text-sm font-medium">Eu (Mente)</span><span class="text-gray-400 text-xs">Online</span></div>
+          </div>
+          <div class="p-4 space-y-3 bg-[#0b141a]">
+            <div class="flex justify-end"><div class="bg-[#005c4b] text-white px-4 py-2 rounded-lg rounded-tr-none text-sm shadow-sm max-w-[90%]">Não tenho tempo agora — a maior mentira que um homem conta para si mesmo.<div class="flex justify-end mt-1 opacity-70"><span class="text-xs">12:30</span></div></div></div>
+            <div class="flex justify-end"><div class="bg-[#005c4b] text-white px-4 py-2 rounded-lg rounded-tr-none text-sm shadow-sm max-w-[90%]">Depois eu resolvo isso.<div class="flex justify-end mt-1 opacity-70"><span class="text-xs">12:31</span></div></div></div>
+            <div class="flex justify-end"><div class="bg-[#005c4b] text-white px-4 py-2 rounded-lg rounded-tr-none text-sm shadow-sm max-w-[90%]">É só mais essa semana de estresse.<div class="flex justify-end mt-1 opacity-70"><span class="text-xs">12:32</span></div></div></div>
+          </div>
+        </div>
+        <div class="max-w-xl mx-auto text-left"><p class="text-white/90 text-base sm:text-lg leading-relaxed border-t border-white/10 pt-4 sm:pt-8">Enquanto isso, você gasta R$ 3 mil em um fim de semana na praia para voltar igual. Ou joga dinheiro em tratamento que só cuidam de sintomas, enquanto a causa continua.</p></div>
+        <div class="mt-8 sm:mt-16 text-center">
+          <div class="inline-flex flex-col items-center gap-2 sm:gap-4">
+            <div class="h-8 w-px bg-gradient-to-b from-transparent to-verde"></div>
+            <h3 class="text-lg sm:text-2xl font-bold text-white">A gente faz diferente.</h3>
+          </div>
+          <p class="text-white text-base sm:text-lg mt-2 sm:mt-4 mb-4 sm:mb-8 max-w-2xl mx-auto px-2">Ao <strong class="text-white border-b border-verde">Passar Pelo <img alt="Prisma" class="inline h-3 sm:h-4 w-auto align-middle" src="https://sagradohomem.net.br/images/prisma-escrito.webp"></strong> você encontra um laboratório de sabedoria ancestral aliada à ciência moderna que traz mudança real.</p>
+          <div class="inline-flex items-center gap-2 sm:gap-3 bg-verde/10 border border-verde/30 px-4 sm:px-8 py-2 sm:py-4 rounded-full">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-verde-claro" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+            <span class="text-verde-claro font-bold uppercase tracking-wider text-sm">Em apenas 4 dias de imersão total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COMO VOCÊ VAI SAIR ========== -->
+<section class="relative py-8 sm:py-16 lg:py-32 bg-[#050505] overflow-hidden">
+  <div class="absolute inset-0 z-0 bg-cover bg-center opacity-30 sm:opacity-40" style="background-image:url('https://sagradohomem.net.br/images/meditacao.webp');background-color:rgb(10,10,10)"></div>
+  <div class="absolute inset-0 z-[1] bg-gradient-to-b from-preto/80 via-preto/60 to-preto/90"></div>
+  <div class="relative z-10 container mx-auto px-4" style="max-width:80rem">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div class="relative">
+        <div class="absolute -left-4 bottom-0 z-10">
+          <svg width="120" height="200" viewBox="0 0 120 200" fill="none"><path d="M60 200 C 20 180, 0 140, 0 100 C 0 60, 20 20, 60 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.6"></path><path d="M80 200 C 40 180, 20 140, 20 100 C 20 60, 40 20, 80 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.4"></path><path d="M100 200 C 60 180, 40 140, 40 100 C 40 60, 60 20, 100 0" stroke="#57b709" stroke-width="3" fill="none" opacity="0.2"></path></svg>
+        </div>
+        <div class="relative overflow-hidden rounded-3xl"><img alt="Encontro Sagrado Homem" class="w-full h-auto object-cover" src="https://sagradohomem.net.br/images/encontro.webp"></div>
+      </div>
+      <div>
+        <h2 class="text-2xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-8 leading-tight text-center lg:text-left">Como você vai sair após participar do <span class="text-transparent bg-clip-text bg-gradient-to-r from-verde to-verde-claro" style="-webkit-background-clip:text">Sagrado Homem</span></h2>
+        <ul class="relative space-y-0 text-left">
+          <div class="absolute left-[4px] sm:left-[5px] lg:left-[6px] top-2 h-[calc(100%-24px)] w-px border-l border-dashed border-verde/40 z-0"></div>
+          <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">As pessoas que você ama vão sentir a diferença na hora. Mais calmo, presente, conectado. O homem que quem te ama merece.</p></li>
+          <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">Sua procrastinação e dúvida vão diminuir. Vai tomar decisões com confiança, porque agora você tem uma direção clara.</p></li>
+          <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">Vai entender a raiz dos seus vícios — seja pornografia, álcool ou trabalho compulsivo. Vai ter ferramentas reais para aplicar no seu dia a dia.</p></li>
+          <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">Cansaço crônico e vazio vão virar energia vital. Você vai querer viver, não apenas sobreviver.</p></li>
+          <li class="relative flex items-start gap-2 sm:gap-4 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">Vai fazer parte de uma tribo de homens conscientes que se apoiam. Muito além dos 4 dias.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PREPARE-SE PARA PASSAR PELO PRISMA ========== -->
+<section class="relative py-8 sm:py-16 lg:py-32 overflow-hidden bg-gradient-to-br from-[#0a1a15] via-[#05100d] to-[#020504]">
+  <div class="relative z-10 container mx-auto px-4" style="max-width:80rem">
+    <div class="text-center mb-8 sm:mb-16 lg:mb-32 flex flex-col items-center">
+      <img alt="Sagrado Homem" class="w-20 sm:w-24 lg:w-32 mb-4 sm:mb-8 opacity-80" src="https://sagradohomem.net.br/images/logo-prisma.webp">
+      <span class="text-verde text-sm sm:text-base font-bold tracking-[0.2em] uppercase mb-2 sm:mb-4 block">Prepare-se</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-white tracking-tight">Para Passar Pelo <img alt="Prisma" class="inline h-5 sm:h-8 lg:h-12 w-auto align-middle" src="https://sagradohomem.net.br/images/prisma-escrito.webp"></h2>
+    </div>
+    <div class="flex flex-col lg:flex-row items-center gap-8 sm:gap-16 lg:gap-32">
+      <div class="w-full lg:w-1/2 flex flex-col gap-4 sm:gap-8 lg:gap-16">
+        <div class="flex gap-4 sm:gap-8 items-start border-b border-white/10 pb-4 sm:pb-8">
+          <div class="flex-shrink-0"><div class="w-8 h-8 sm:w-16 sm:h-16 rounded-2xl bg-verde/10 flex items-center justify-center border border-verde/20"><svg class="w-8 h-8 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="6" r="2"></circle><path d="M12 8v4"></path><path d="M9 20h6"></path><path d="M6 17c0-3.5 2.5-6 6-8"></path><path d="M18 17c0-3.5-2.5-6-6-8"></path><path d="M9 14l-3 3"></path><path d="M15 14l3 3"></path></svg></div></div>
+          <div><h3 class="text-base sm:text-xl font-bold text-white mb-1 sm:mb-2">Conhecer a Si Mesmo</h3><p class="text-white text-sm sm:text-base leading-relaxed opacity-90">Descobrir que você possui padrões de pensamento escondidos. Padrões que te sabotam e te impedem de evoluir.</p></div>
+        </div>
+        <div class="flex gap-4 sm:gap-8 items-start border-b border-white/10 pb-4 sm:pb-8">
+          <div class="flex-shrink-0"><div class="w-8 h-8 sm:w-16 sm:h-16 rounded-2xl bg-verde/10 flex items-center justify-center border border-verde/20"><svg class="w-8 h-8 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v1a3 3 0 0 0 3 3 4 4 0 0 1 0 8 3 3 0 0 0-3 3v1a4 4 0 0 1-8 0v-1a3 3 0 0 0-3-3 4 4 0 0 1 0-8 3 3 0 0 0 3-3V6a4 4 0 0 1 4-4"></path><circle cx="12" cy="12" r="3"></circle></svg></div></div>
+          <div><h3 class="text-base sm:text-xl font-bold text-white mb-1 sm:mb-2">Reprogramar Sua Mente</h3><p class="text-white text-sm sm:text-base leading-relaxed opacity-90">Tudo que existe de mais moderno e comprovado na ciência para quebrar seus ciclos destrutivos.</p></div>
+        </div>
+        <div class="flex gap-4 sm:gap-8 items-start">
+          <div class="flex-shrink-0"><div class="w-8 h-8 sm:w-16 sm:h-16 rounded-2xl bg-verde/10 flex items-center justify-center border border-verde/20"><svg class="w-8 h-8 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path></svg></div></div>
+          <div><h3 class="text-base sm:text-xl font-bold text-white mb-1 sm:mb-2">Transcender Profundamente</h3><p class="text-white text-sm sm:text-base leading-relaxed opacity-90">De maneira segura, vai experienciar um método milenar da medicina ancestral. Vai acessar verdades que sua mente racional esconde de você.</p></div>
+        </div>
+      </div>
+      <div class="w-full lg:w-1/2 max-w-xs sm:max-w-sm lg:max-w-none mx-auto">
+        <div class="aspect-[3/4] sm:aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/5 relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+          <img alt="Palestra" class="w-full h-full object-cover object-center" src="https://sagradohomem.net.br/images/palestra2.webp">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PASSE PELO PRISMA — 6 CARDS ========== -->
+<section class="relative py-8 sm:py-16 lg:py-32 overflow-hidden bg-[#0D1A15] border-t border-white/5">
+  <div class="relative z-10 container mx-auto px-4" style="max-width:80rem">
+    <div class="text-center mb-8 sm:mb-16 lg:mb-32 flex flex-col items-center">
+      <span class="text-verde text-sm font-bold tracking-[0.2em] uppercase mb-2 sm:mb-4 block">O <img alt="Prisma" class="inline h-4 sm:h-5 w-auto align-middle" src="https://sagradohomem.net.br/images/prisma-escrito.webp">. Único método do Brasil que une neurociência, programação neurolinguística e medicina ancestral.</span>
+      <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-white tracking-tight">Passe pelo <img alt="Prisma" class="inline h-5 sm:h-6 lg:h-12 w-auto align-middle" src="https://sagradohomem.net.br/images/prisma-escrito.webp"></h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+      <div class="flex flex-col items-start group">
+        <div class="mb-4 sm:mb-8 opacity-90 group-hover:scale-110 transition-transform duration-300"><svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line></svg></div>
+        <h3 class="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-4 leading-tight group-hover:text-verde transition-colors duration-300">Autoconhecimento</h3>
+        <div class="text-gray-300 text-sm sm:text-base leading-relaxed">Descubra quem você realmente é além das <strong class="text-[#BFF100] font-bold">máscaras sociais</strong>. Identifique suas <strong class="text-[#BFF100] font-bold">crenças limitantes</strong>, padrões herdados e comportamentos automáticos que te impedem de viver sua <strong class="text-[#BFF100] font-bold">verdadeira essência</strong> como homem.</div>
+      </div>
+      <div class="flex flex-col items-start group">
+        <div class="mb-4 sm:mb-8 opacity-90 group-hover:scale-110 transition-transform duration-300"><svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 1 4 4v1a3 3 0 0 0 3 3 4 4 0 0 1 0 8 3 3 0 0 0-3 3v1a4 4 0 0 1-8 0v-1a3 3 0 0 0-3-3 4 4 0 0 1 0-8 3 3 0 0 0 3-3V6a4 4 0 0 1 4-4"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
+        <h3 class="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-4 leading-tight group-hover:text-verde transition-colors duration-300">Neurociência na prática</h3>
+        <div class="text-gray-300 text-sm sm:text-base leading-relaxed">Entenda como seu <strong class="text-[#BFF100] font-bold">cérebro</strong> funciona e como <strong class="text-[#BFF100] font-bold">reprogramar</strong> circuitos neurológicos antigos. Aprenda técnicas científicas para criar <strong class="text-[#BFF100] font-bold">novos padrões</strong> de pensamento, emoção e comportamento de forma permanente.</div>
+      </div>
+      <div class="flex flex-col items-start group">
+        <div class="mb-4 sm:mb-8 opacity-90 group-hover:scale-110 transition-transform duration-300"><svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h8"></path><path d="M8 14h4"></path></svg></div>
+        <h3 class="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-4 leading-tight group-hover:text-verde transition-colors duration-300">Neurolinguística</h3>
+        <div class="text-gray-300 text-sm sm:text-base leading-relaxed">Domine ferramentas de <strong class="text-[#BFF100] font-bold">PNL</strong> para ressignificar traumas, <strong class="text-[#BFF100] font-bold">quebrar âncoras</strong> emocionais negativas e instalar <strong class="text-[#BFF100] font-bold">novos recursos</strong> internos. Transforme a forma como você se comunica consigo mesmo e com o mundo.</div>
+      </div>
+      <div class="flex flex-col items-start group">
+        <div class="mb-4 sm:mb-8 opacity-90 group-hover:scale-110 transition-transform duration-300"><svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path></svg></div>
+        <h3 class="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-4 leading-tight group-hover:text-verde transition-colors duration-300">Inteligência emocional</h3>
+        <div class="text-gray-300 text-sm sm:text-base leading-relaxed">Aprenda a <strong class="text-[#BFF100] font-bold">processar raiva</strong>, medo, tristeza e frustração de forma saudável. Desenvolva a capacidade de <strong class="text-[#BFF100] font-bold">sentir sem ser dominado</strong> pelas emoções, mantendo sua <strong class="text-[#BFF100] font-bold">presença e força</strong> em qualquer situação.</div>
+      </div>
+      <div class="flex flex-col items-start group">
+        <div class="mb-4 sm:mb-8 opacity-90 group-hover:scale-110 transition-transform duration-300"><svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v12"></path><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg></div>
+        <h3 class="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-4 leading-tight group-hover:text-verde transition-colors duration-300">Relações familiares</h3>
+        <div class="text-gray-300 text-sm sm:text-base leading-relaxed">Trabalhe <strong class="text-[#BFF100] font-bold">feridas com seu pai</strong>, mãe e ancestrais. Entenda como padrões familiares foram transmitidos através de gerações e aprenda a <strong class="text-[#BFF100] font-bold">romper ciclos</strong> destrutivos para não passá-los adiante aos seus filhos.</div>
+      </div>
+      <div class="flex flex-col items-start group">
+        <div class="mb-4 sm:mb-8 opacity-90 group-hover:scale-110 transition-transform duration-300"><svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg></div>
+        <h3 class="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-4 leading-tight group-hover:text-verde transition-colors duration-300">Conexão com o sagrado</h3>
+        <div class="text-gray-300 text-sm sm:text-base leading-relaxed">Experiências guiadas com <strong class="text-[#BFF100] font-bold">medicinas ancestrais</strong> da floresta em ambiente seguro. Expanda sua <strong class="text-[#BFF100] font-bold">consciência</strong>, acesse sabedorias internas e reconecte-se com a <strong class="text-verde font-bold">VERDADE</strong> dentro de você.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ACELERADORES DE CONSCIÊNCIA ========== -->
+<section class="relative overflow-hidden py-8 sm:py-16">
+  <div class="absolute inset-0 z-0">
+    <!-- Fallback animado CSS (Ken Burns) — funciona offline -->
+    <div class="absolute inset-0 aceleradores-bg"></div>
+    <!-- YouTube como upgrade quando servido via HTTP -->
+    <div id="yt-bg" class="hidden lg:block absolute inset-0 opacity-0 transition-opacity duration-1000" style="pointer-events:none">
+      <iframe class="absolute w-full h-full" style="min-width:177.78vh;min-height:100vw;left:50%;top:50%;transform:translate(-50%,-50%)" src="https://www.youtube.com/embed/1HdBnjZuCXI?autoplay=1&mute=1&loop=1&playlist=1HdBnjZuCXI&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen" title="Ayahuasca background video"></iframe>
+    </div>
+  </div>
+  <div class="absolute inset-0 z-[1] bg-black/70"></div>
+  <div class="relative z-10 container mx-auto px-4" style="max-width:64rem">
+    <div class="text-center mb-4 sm:mb-8">
+      <h2 class="text-2xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight">Aceleradores de <span class="text-verde">consciência</span>
+        <span class="text-base sm:text-lg font-medium text-white mt-2 block">Como acessamos em <span class="text-preto bg-gradient-to-r from-verde to-verde-claro px-2 py-0.5 rounded font-bold inline-block -rotate-1 mx-1">4 dias</span><br>o que precisa de anos de terapia</span>
+      </h2>
+    </div>
+    <!-- Tabs -->
+    <div class="mb-4 sm:mb-8 overflow-x-auto pb-2">
+      <div class="flex gap-2 min-w-max justify-center">
+        <button class="tab-btn active px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap" onclick="switchTab(this,'tab1')">Propósito</button>
+        <button class="tab-btn px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap bg-black/50 border border-gray-700 text-gray-300 hover:border-verde hover:text-verde" onclick="switchTab(this,'tab2')">Dados Científicos</button>
+        <button class="tab-btn px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap bg-black/50 border border-gray-700 text-gray-300 hover:border-verde hover:text-verde" onclick="switchTab(this,'tab3')">Segurança na Prática</button>
+        <button class="tab-btn px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap bg-black/50 border border-gray-700 text-gray-300 hover:border-verde hover:text-verde" onclick="switchTab(this,'tab4')">Transformação</button>
+      </div>
+    </div>
+    <div class="max-w-3xl mx-auto">
+      <div id="tab1" class="tab-content active bg-[#0a0a0a] border border-gray-800 rounded-lg p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-verde flex items-center justify-center"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-verde mb-4 text-left">Por que Ayahuasca no Sagrado Homem</h3>
+            <div class="space-y-4 text-white text-base text-left leading-relaxed">
+              <p>Técnicas de desenvolvimento pessoal te levam até um ponto. A medicina ancestral combinada às técnicas te leva muito além.</p>
+              <p>Aquela raiva que você não controla? Tem uma origem escondida. O vazio que não passa? Tem uma causa que a mente racional não acessa. O padrão que você herdou do seu pai sem perceber? Está guardado em algum lugar.</p>
+              <p>A Ayahuasca é um facilitador. Ela vai abrir as portas do seu inconsciente.</p>
+              <p>O Sagrado Homem existe para reconectar o homem com seus pilares essenciais: parceria, comunicação, confiança, respeito e consciência.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab2" class="tab-content bg-[#0a0a0a] border border-gray-800 rounded-lg p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-verde flex items-center justify-center"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg></div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-verde mb-4 text-left">O que a ciência diz sobre Ayahuasca</h3>
+            <div class="space-y-4 text-white text-base text-left leading-relaxed">
+              <p>Estudos da Universidade de São Paulo e Johns Hopkins mostram redução significativa de depressão, ansiedade e TEPT após uma única sessão guiada.</p>
+              <p>A DMT presente na Ayahuasca ativa regiões do cérebro ligadas ao processamento de memórias e emoções, permitindo integração de experiências traumáticas.</p>
+              <p>Pesquisadores do Imperial College London documentaram aumento de plasticidade neural e novas conexões sinápticas por até 4 semanas após uso ritual.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab3" class="tab-content bg-[#0a0a0a] border border-gray-800 rounded-lg p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-verde flex items-center justify-center"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-verde mb-4 text-left">Segurança em primeiro lugar</h3>
+            <div class="space-y-4 text-white text-base text-left leading-relaxed">
+              <p>A preparação começa semanas antes. Você receberá um protocolo de dieta e intenção para preparar corpo e mente.</p>
+              <p>A cerimônia é conduzida por facilitadores experientes em espaço sagrado e contido. Nenhum participante fica sem suporte durante toda a noite.</p>
+              <p>Dias 1 e 2 de preparação (banho de gelo, tenda do suor, fogo) não são espetáculo — são protocolo para abrir o sistema nervoso com segurança antes da medicina.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab4" class="tab-content bg-[#0a0a0a] border border-gray-800 rounded-lg p-8">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0 w-12 h-12 rounded-full bg-verde flex items-center justify-center"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-verde mb-4 text-left">Transformação que dura</h3>
+            <div class="space-y-4 text-white text-base text-left leading-relaxed">
+              <p>O Dia 4 de integração não é opcional. É ali que o insight vira mudança real — você transforma o que viveu em linguagem, em intenção, em plano.</p>
+              <p>Os participantes saem com ferramentas concretas de PNL e neurociência para continuar o trabalho em casa. A transformação não termina no domingo.</p>
+              <p>A tribo formada nos 4 dias continua ativa. Um grupo de homens que se viram de verdade, sem máscaras, é um recurso que dura a vida inteira.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== OCA DA ANA ========== -->
+<section class="relative py-8 sm:py-16 lg:py-32 bg-white overflow-hidden">
+  <div class="container mx-auto px-4 sm:px-8" style="max-width:80rem">
+    <!-- Texto -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center mb-12 lg:mb-24">
+      <div class="relative">
+        <div class="absolute -top-6 -left-6 w-full h-full border-2 border-verde/10 rounded-[3rem] -z-10"></div>
+        <div class="relative rounded-[3rem] overflow-hidden shadow-2xl">
+          <img alt="Oca da Ana" class="w-full h-auto object-cover" src="https://sagradohomem.net.br/images/oca_da_ana.webp">
+        </div>
+      </div>
+      <div>
+        <div class="mb-8">
+          <span class="text-verde font-bold tracking-widest text-sm uppercase mb-3 block">Franco da Rocha • SP</span>
+          <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">Você vai passar pelo <img alt="Prisma" class="inline h-8 lg:h-10 w-auto align-middle" style="filter:invert(1)" src="https://sagradohomem.net.br/images/prisma-escrito.webp"> na <br><span class="text-verde relative inline-block">Oca da Ana<svg class="absolute w-full h-3 -bottom-2 left-0 text-verde opacity-30" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="4" fill="none"></path></svg></span></h2>
+        </div>
+        <div class="space-y-6 text-gray-600 text-lg leading-relaxed font-light">
+          <p>A <span class="text-gray-900 font-medium">50 minutos da capital paulista</span>, a Chácara Oca da Ana faz divisa com a mata preservada do Parque Estadual do Juquery. A Oca é um <span class="text-gray-900 font-medium">lugar seguro e de transformação</span> que já recebe há anos homens e mulheres.</p>
+          <p>O lugar tem uma energia diferente. Quem vai pela primeira vez sente. Uma <span class="text-gray-900 font-medium">gruta de pedras naturais</span> funciona como coração do espaço — é ali que as atividades mais profundas acontecem.</p>
+          <p>Ao redor da Oca: mata fechada, ar puro, silêncio e céu limpo à noite. O tipo de ambiente que não existe mais na cidade grande.</p>
+        </div>
+      </div>
+    </div>
+    <!-- Infraestrutura + galeria -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+      <div class="lg:col-span-2 space-y-4">
+        <div class="mb-6"><h3 class="text-xl font-bold text-gray-900">Infraestrutura</h3><div class="w-16 h-1 bg-verde mt-2 rounded-full"></div></div>
+        <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+          <div class="flex items-center gap-4 mb-3"><div class="w-12 h-12 rounded-xl bg-verde/10 flex items-center justify-center text-verde"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 8h1a4 4 0 1 1 0 8h-1"></path><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path><line x1="6" x2="6" y1="2" y2="4"></line><line x1="10" x2="10" y1="2" y2="4"></line><line x1="14" x2="14" y1="2" y2="4"></line></svg></div><h3 class="text-lg font-bold text-gray-900">Alimentação 100% Inclusa</h3></div>
+          <p class="text-gray-500 text-sm leading-relaxed pl-16"><strong class="text-verde">Café da manhã, almoço e jantar.</strong> Comida caseira preparada com dedicação. Você não precisa levar nada para comer — seu <strong class="text-verde">único foco será na sua mudança.</strong></p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+          <div class="flex items-center gap-4 mb-3"><div class="w-12 h-12 rounded-xl bg-verde/10 flex items-center justify-center text-verde"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 4v16"></path><path d="M2 8h18a2 2 0 0 1 2 2v10"></path><path d="M2 17h20"></path><path d="M6 8v9"></path></svg></div><h3 class="text-lg font-bold text-gray-900">Acomodação Completa</h3></div>
+          <p class="text-gray-500 text-sm leading-relaxed pl-16">Dormitórios integrados à natureza. <strong class="text-verde">Cama, lençol, travesseiro, toalha — tudo incluso.</strong> Você vai <strong class="text-verde">dormir ouvindo a mata</strong> e acordar sem despertador.</p>
+        </div>
+        <div class="p-6 rounded-2xl bg-white border border-gray-100 shadow-sm">
+          <div class="flex items-center gap-4 mb-3"><div class="w-12 h-12 rounded-xl bg-verde/10 flex items-center justify-center text-verde"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line></svg></div><h3 class="text-lg font-bold text-gray-900">A Transformação</h3></div>
+          <p class="text-gray-500 text-sm leading-relaxed pl-16"><strong class="text-verde">4 dias fora da rotina.</strong> Dinâmicas que vão te tirar da zona de conforto. Você vai <strong class="text-verde">sair diferente de como entrou</strong> — e as pessoas ao redor vão perceber.</p>
+        </div>
+      </div>
+      <div class="lg:col-span-3">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Espaços de Conexão</h3>
+        <div class="grid grid-cols-3 grid-rows-2 gap-4" style="height:400px">
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group col-span-2 row-span-2"><img alt="Galeria 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://sagradohomem.net.br/images/galeria_01.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group"><img alt="Galeria 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://sagradohomem.net.br/images/galeria_02.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group"><img alt="Galeria 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://sagradohomem.net.br/images/galeria_03.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
+        </div>
+        <div class="grid grid-cols-3 gap-4 mt-4" style="height:130px">
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group"><img alt="Galeria 4" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://sagradohomem.net.br/images/galeria_04.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
+          <div class="relative rounded-2xl overflow-hidden shadow-lg group"><img alt="Galeria 5" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://sagradohomem.net.br/images/galeria_05.webp"><div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div></div>
+          <div class="relative rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-200">
+            <a href="https://maps.google.com/?q=Rua+Americo+Barbosa+Ortiz+71+Itaim+Franco+da+Rocha+SP" target="_blank" rel="noopener noreferrer" class="absolute inset-0 flex items-center justify-center bg-gray-100 hover:bg-gray-200 transition-all group">
+              <div class="bg-verde text-white px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-2 shadow-xl transform group-hover:scale-105 transition-transform"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>Ver no Mapa</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== OFERTA / PREÇO ========== -->
+<section id="oferta" class="relative flex items-center justify-center overflow-hidden py-8 sm:py-16 lg:py-32" style="min-height:80vh">
+  <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image:url('https://sagradohomem.net.br/images/meditacao.webp')">
+    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/60"></div>
+  </div>
+  <div class="relative z-10 container mx-auto px-4 text-center" style="max-width:56rem">
+    <div class="flex flex-col items-center gap-2 sm:gap-4 mb-8 sm:mb-16">
+      <div class="flex items-center gap-2 sm:gap-4 text-[#d4e157]">
+        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+        <span class="text-lg sm:text-2xl lg:text-3xl font-bold text-white">14 a 17 de fevereiro de 2026</span>
+      </div>
+      <a href="https://maps.google.com/?q=Chácara+Oca+da+Ana+Franco+da+Rocha+SP" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 sm:px-8 py-2 rounded-full border border-[#d4e157]/30 bg-[#d4e157]/5 text-gray-300 text-sm uppercase tracking-wider hover:bg-[#d4e157]/10 transition-colors"><span>Franco da Rocha, SP</span></a>
+    </div>
+    <div class="mb-4 sm:mb-8"><div class="inline-block border border-gray-600 px-4 sm:px-8 py-2 rounded-md bg-black/40"><p class="text-gray-300 uppercase tracking-widest text-sm sm:text-base font-medium">Apenas 20 vagas</p></div></div>
+    <div class="mb-8 sm:mb-16">
+      <div class="mb-2"><span class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white tracking-tight"><span class="text-xl sm:text-2xl lg:text-4xl text-gray-400 font-normal mr-2">12x</span>R$ 196,19</span></div>
+      <p class="text-gray-400 text-base sm:text-lg lg:text-xl">ou R$ 1.897 à vista</p>
+    </div>
+    <div class="mb-8 sm:mb-16">
+      <button onclick="window.open('https://payment.ticto.app/O49C521C7','_blank')" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.6)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] hover:-translate-y-1 transition-all duration-300 border border-verde-claro/30 cursor-pointer w-full sm:w-auto">
+        <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-verde-claro/50 to-transparent"></div>
+        <span class="relative z-10 uppercase tracking-wider">GARANTIR MINHA TRANSFORMAÇÃO</span>
+        <svg class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+      </button>
+    </div>
+    <!-- Ícones de pagamento -->
+    <div class="mb-8 sm:mb-16 flex justify-center items-center gap-4 sm:gap-4 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+      <svg class="h-5 sm:h-6 lg:h-8" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.89 31.79H23l2.568-20.168H21.454L18.89 31.79zM36.176 12.016c-.378-.154-1.712-.394-3.366-.394-4.274 0-7.308 2.296-7.326 5.528-.02 2.42 2.184 3.78 3.84 4.584 1.704.828 2.28 1.356 2.28 2.17 0 1.272-1.516 1.846-2.964 1.846-1.368 0-2.392-.372-3.596-.908l-.722-.334-.416 4.052c.676.314 1.954.874 3.384.874 4.522 0 7.484-2.234 7.512-5.696.02-2.082-1.282-3.654-4.164-5.038-1.502-.77-1.972-1.264-1.972-2.014 0-.91.988-1.33 2.02-1.33 1.378 0 2.338.3 3.23.694l.52.24 1.74-4.274zM43.486 31.79h3.682l-3.03-20.168H40.67c-.914 0-1.738.54-2.084 1.364L32.964 26.376l3.822 5.414h.494s.682-2.228.816-2.72c.372 0 4.388 0 4.886 0 .102.77.504 2.72.504 2.72zM39.264 25.708c.28-.748 1.468-5.34 1.468-5.34l1.542 7.304-3.01-1.964zM16.208 31.79l3.254-20.168H15.644L12.568 24.444 9.61 12.578C9.28 11.52 8.214 11.622 8.214 11.622H.83L.686 12.316c2.712.748 5.89 2.69 7.908 6.446L12.636 31.79H16.208z" fill="white"></path></svg>
+      <svg class="h-5 sm:h-6 lg:h-8" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.314 24.032C19.314 28.534 21.576 32.53 25.074 34.996C22.618 36.87 19.568 37.996 16.236 37.996C7.268 37.996 0 30.728 0 21.76C0 12.792 7.268 5.524 16.236 5.524C19.824 5.524 23.106 6.812 25.684 8.974C21.908 11.678 19.314 16.036 19.314 20.97V24.032Z" fill="#FF5F00"></path><path d="M28.476 24.032V20.97C28.476 16.036 25.882 11.678 22.106 8.974C24.684 6.812 27.966 5.524 31.554 5.524C40.522 5.524 47.79 12.792 47.79 21.76C47.79 30.728 40.522 37.996 31.554 37.996C28.222 37.996 25.172 36.87 22.716 34.996C26.214 32.53 28.476 28.534 28.476 24.032Z" fill="#F79E1B"></path></svg>
+      <svg class="h-5 sm:h-6 lg:h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.13 7L13.9 3.76C12.86 2.72 11.16 2.72 10.12 3.76L6.88 7L3.64 10.24C2.6 11.28 2.6 12.98 3.64 14.02L6.88 17.26L10.12 20.5C11.16 21.54 12.85 21.54 13.89 20.5L17.13 17.26L20.37 14.02C21.41 12.98 21.41 11.28 20.37 10.24L17.13 7Z" fill="#32BCAD"></path></svg>
+      <svg class="h-5 sm:h-6 lg:h-8" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+    </div>
+    <!-- Trust badges -->
+    <div class="flex flex-wrap justify-center gap-4 sm:gap-16 pb-8 border-t border-white/10 pt-8">
+      <div class="flex items-center gap-2 sm:gap-4 text-gray-400 text-sm"><svg class="w-5 h-5 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><div class="text-left"><p class="font-bold text-gray-300">COMPRA SEGURA</p><p>Dados protegidos</p></div></div>
+      <div class="flex items-center gap-2 sm:gap-4 text-gray-400 text-sm"><svg class="w-5 h-5 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="m9 12 2 2 4-4"></path></svg><div class="text-left"><p class="font-bold text-gray-300">SATISFAÇÃO</p><p>Garantia de 7 dias</p></div></div>
+      <div class="flex items-center gap-2 sm:gap-4 text-gray-400 text-sm"><svg class="w-5 h-5 text-verde" viewBox="0 0 24 24" fill="currentColor"><path d="M21 10h-8.35C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H13l2 2 2-2 2 2 4-4.04L21 10zM7 15c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"></path></svg><div class="text-left"><p class="font-bold text-gray-300">PRIVACIDADE</p><p>Acesso restrito</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GUIAS ========== -->
+<section class="relative py-8 sm:py-16 lg:py-32 overflow-hidden bg-[#fcfbf7]">
+  <div class="container mx-auto px-4 sm:px-8" style="max-width:80rem">
+    <div class="text-center mb-8 sm:mb-16 lg:mb-32">
+      <div class="inline-block p-2 px-4 rounded-full bg-verde/5 mb-4 border border-verde/10"><span class="text-verde font-semibold tracking-wider text-sm uppercase">Nossos Guias</span></div>
+      <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 mb-4 lg:mb-8 tracking-tight">Quem está à frente <br class="hidden md:block"><span class="relative inline-block">do movimento<svg class="absolute w-full h-2 -bottom-1 left-0 text-[#d4e157] opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="4" fill="none"></path></svg></span></h2>
+      <div class="w-32 h-1 mx-auto rounded-full bg-gradient-to-r from-transparent via-[#d4e157] to-transparent opacity-50"></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-8 lg:gap-16 max-w-4xl mx-auto">
+      <div class="group">
+        <div class="mb-4 sm:mb-8 relative mx-auto w-full max-w-[200px] sm:max-w-[240px] lg:max-w-none aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:shadow-verde/10">
+          <img alt="Rodolfo Barizon" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="filter:grayscale(10%)" src="https://sagradohomem.net.br/images/rodolfo.webp">
+        </div>
+        <div class="text-center lg:text-left">
+          <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 group-hover:text-verde transition-colors duration-300">Rodolfo Barizon</h3>
+          <div class="w-16 h-1 bg-[#d4e157]/50 mb-4 mx-auto lg:mx-0 rounded-full group-hover:w-32 group-hover:bg-[#d4e157] transition-all duration-300"></div>
           <div class="space-y-2 sm:space-y-4">
-            <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer transition-colors">
-              <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40"></div>
-              <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Já se viu explodindo de raiva com quem ama, seguido de um arrependimento profundo?</p>
-            </div>
-            <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer transition-colors">
-              <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40"></div>
-              <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Sente que diz sim para tudo e perdeu o respeito das pessoas?</p>
-            </div>
-            <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer transition-colors">
-              <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40"></div>
-              <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Está presente de corpo, mas a mente está em outro lugar?</p>
-            </div>
-            <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer transition-colors">
-              <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40"></div>
-              <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Viciado em pornografia, trabalho ou comida sem conseguir fugir do vazio?</p>
-            </div>
-            <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg border border-transparent hover:bg-white/5 cursor-pointer transition-colors">
-              <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40"></div>
-              <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Você até conquistou alguma coisa, mas sente que falta algo?</p>
-            </div>
-          </div>
-          <div class="mt-4 sm:mt-4 text-center">
-            <span class="text-xs sm:text-sm font-mono text-gray-500 uppercase tracking-widest">Toque para marcar os itens</span>
+            <p class="text-gray-500 text-sm sm:text-base leading-relaxed text-left">Empresário de 36 anos, apaixonado por natureza, música e desenvolvimento pessoal. Pai e esposo dedicado, vive com propósito e tem como missão ajudar pessoas a se desenvolverem e despertarem seu potencial.</p>
+            <p class="text-gray-500 text-sm sm:text-base leading-relaxed text-left">Movido por coragem e disciplina, acredita que o verdadeiro crescimento nasce da constância e da superação diária. Amante das músicas de transformação e de tudo que eleva o espírito, busca viver com equilíbrio, presença e coração aberto, conduzindo outros homens nessa jornada de reconexão com sua essência.</p>
           </div>
         </div>
-
-        <div class="text-center max-w-3xl mx-auto">
-          <h3 class="text-lg sm:text-xl lg:text-xl font-bold text-white mb-4 sm:mb-8">
-            Acredite: isso é uma <span style="color:#1ab600">epidemia</span>.
-          </h3>
-          <div class="max-w-xl mx-auto text-left mb-4 sm:mb-8 lg:mb-8">
-            <p class="text-white text-base sm:text-lg leading-relaxed">Nosso cérebro evoluiu para sobreviver, não para viver. Você cresceu, ficou bom no que faz, mas está preso em loop:</p>
-          </div>
-
-          <!-- WhatsApp mockup -->
-          <div class="border border-white/10 rounded-2xl overflow-hidden mb-8 text-left relative shadow-lg max-w-sm sm:max-w-md mx-auto" style="background:#0b141a">
-            <div class="px-4 py-3 flex items-center gap-3 border-b border-white/5" style="background:#202c33">
-              <div class="w-8 h-8 rounded-full bg-gray-500 flex items-center justify-center text-white text-xs font-bold">EU</div>
-              <div class="flex flex-col">
-                <span class="text-white text-sm font-medium">Eu (Mente)</span>
-                <span class="text-gray-400 text-xs">Online</span>
-              </div>
-            </div>
-            <div class="p-4 space-y-3" style="background:#0b141a">
-              <div class="flex justify-end">
-                <div class="px-4 py-2 rounded-lg rounded-tr-none text-white text-sm shadow-sm max-w-[90%]" style="background:#005c4b">
-                  Não tenho tempo agora — a maior mentira que um homem conta para si mesmo.
-                  <div class="flex justify-end mt-1 space-x-1 items-center opacity-70"><span class="text-xs">12:30</span></div>
-                </div>
-              </div>
-              <div class="flex justify-end">
-                <div class="px-4 py-2 rounded-lg rounded-tr-none text-white text-sm shadow-sm max-w-[90%]" style="background:#005c4b">
-                  Depois eu resolvo isso.
-                  <div class="flex justify-end mt-1 space-x-1 items-center opacity-70"><span class="text-xs">12:31</span></div>
-                </div>
-              </div>
-              <div class="flex justify-end">
-                <div class="px-4 py-2 rounded-lg rounded-tr-none text-white text-sm shadow-sm max-w-[90%]" style="background:#005c4b">
-                  É só mais essa semana de estresse.
-                  <div class="flex justify-end mt-1 space-x-1 items-center opacity-70"><span class="text-xs">12:32</span></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="max-w-xl mx-auto text-left">
-            <p class="text-white/90 text-base sm:text-lg leading-relaxed border-t border-white/10 pt-4 sm:pt-8">
-              Enquanto isso, você gasta R$ 3 mil em um fim de semana na praia para voltar igual. Ou joga dinheiro em tratamento que só cuidam de sintomas, enquanto a causa continua.
-            </p>
-          </div>
-
-          <div class="mt-8 sm:mt-16 text-center">
-            <div class="inline-flex flex-col items-center gap-2 sm:gap-4">
-              <div class="h-8 w-px" style="background:linear-gradient(to bottom,transparent,#1ab600)"></div>
-              <h3 class="text-lg sm:text-2xl font-bold text-white">A gente faz diferente.</h3>
-            </div>
-            <p class="text-white text-base sm:text-lg mt-2 sm:mt-4 mb-4 sm:mb-8 max-w-2xl mx-auto px-2">
-              Ao <strong class="text-white border-b" style="border-color:#1ab600">Passar Pelo Prisma</strong> você encontra um laboratório de sabedoria ancestral aliada à ciência moderna que traz mudança real.
-            </p>
-            <div class="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-8 py-2 sm:py-4 rounded-full transition-colors" style="background:rgba(26,182,0,0.1);border:1px solid rgba(26,182,0,0.3)">
-              <svg class="w-4 h-4 sm:w-5 sm:h-5" style="color:#ccff00" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-              <span class="font-bold uppercase tracking-wider sm:tracking-widest text-sm" style="color:#ccff00">Em apenas 4 dias de imersão total</span>
-            </div>
+      </div>
+      <div class="group">
+        <div class="mb-4 sm:mb-8 relative mx-auto w-full max-w-[200px] sm:max-w-[240px] lg:max-w-none aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:shadow-verde/10">
+          <img alt="César Frezza" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" style="filter:grayscale(10%)" src="https://sagradohomem.net.br/images/cesar.webp">
+        </div>
+        <div class="text-center lg:text-left">
+          <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 group-hover:text-verde transition-colors duration-300">César Frezza</h3>
+          <div class="w-16 h-1 bg-[#d4e157]/50 mb-4 mx-auto lg:mx-0 rounded-full group-hover:w-32 group-hover:bg-[#d4e157] transition-all duration-300"></div>
+          <div class="space-y-2 sm:space-y-4">
+            <p class="text-gray-500 text-sm sm:text-base leading-relaxed text-left">Sound Healer e Reikiano de 33 anos, abandonou a carreira bancária para seguir um chamado mais profundo: compreender a consciência integrando ciência, espiritualidade e autoconhecimento.</p>
+            <p class="text-gray-500 text-sm sm:text-base leading-relaxed text-left">Hoje atua como facilitador de expansão da consciência, unindo música, respiração e enteógenos em contextos terapêuticos. Baseia-se em neurociência, física e psicologia aliados a saberes ancestrais para promover clareza e transformação interior.</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ============================================================
-       SEÇÃO - COMO VOCÊ VAI SAIR
-       ============================================================ -->
-  <section class="relative py-8 sm:py-16 lg:py-32 overflow-hidden" style="background:#050505">
-    <div class="absolute inset-0 z-0 bg-cover bg-center opacity-30 sm:opacity-40" style="background-image:url('https://sagradohomem.net.br/images/meditacao.webp');background-color:rgb(10,10,10)"></div>
-    <div class="absolute inset-0 z-[1]" style="background:linear-gradient(to bottom,rgba(0,0,0,0.8),rgba(0,0,0,0.6),rgba(0,0,0,0.9))"></div>
-
-    <div class="relative z-10 container mx-auto px-4" style="max-width:80rem;">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-
-        <!-- Imagem -->
-        <div class="relative">
-          <div class="relative overflow-hidden rounded-3xl">
-            <img
-              alt="Encontro Sagrado Homem"
-              src="https://sagradohomem.net.br/images/encontro.webp"
-              class="w-full h-auto object-cover"
-            >
-          </div>
-        </div>
-
-        <!-- Lista de transformações -->
-        <div>
-          <h2 class="text-2xl sm:text-2xl lg:text-3xl font-bold text-white mb-4 sm:mb-8 leading-tight text-center lg:text-left">
-            Como você vai sair após participar do
-            <span class="text-transparent bg-clip-text font-bold" style="background-image:linear-gradient(to right,#1ab600,#ccff00);-webkit-background-clip:text;">Sagrado Homem</span>
-          </h2>
-          <ul class="relative space-y-0 text-left">
-            <div class="absolute left-[4px] sm:left-[5px] lg:left-[6px] top-2 w-px border-l border-dashed z-0" style="height:calc(100% - 24px);border-color:rgba(26,182,0,0.4)"></div>
-            <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10">
-              <div class="flex-shrink-0 mt-1 sm:mt-2 relative" style="background:#050505;box-shadow:0 0 0 4px #050505">
-                <div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full" style="background:#1ab600;box-shadow:0 0 8px rgba(26,182,0,0.6)"></div>
-              </div>
-              <p class="text-gray-300 text-sm sm:text-base leading-relaxed">As pessoas que você ama vão sentir a diferença na hora. Mais calmo, presente, conectado. O homem que quem te ama merece.</p>
-            </li>
-            <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10">
-              <div class="flex-shrink-0 mt-1 sm:mt-2 relative" style="background:#050505;box-shadow:0 0 0 4px #050505">
-                <div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full" style="background:#1ab600;box-shadow:0 0 8px rgba(26,182,0,0.6)"></div>
-              </div>
-              <p class="text-gray-300 text-sm sm:text-base leading-relaxed">Sua procrastinação e dúvida vão diminuir. Vai tomar decisões com confiança, porque agora você tem uma direção clara.</p>
-            </li>
-            <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10">
-              <div class="flex-shrink-0 mt-1 sm:mt-2 relative" style="background:#050505;box-shadow:0 0 0 4px #050505">
-                <div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full" style="background:#1ab600;box-shadow:0 0 8px rgba(26,182,0,0.6)"></div>
-              </div>
-              <p class="text-gray-300 text-sm sm:text-base leading-relaxed">Vai entender a raiz dos seus vícios — seja pornografia, álcool ou trabalho compulsivo. Vai ter ferramentas reais para aplicar no seu dia a dia.</p>
-            </li>
-            <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10">
-              <div class="flex-shrink-0 mt-1 sm:mt-2 relative" style="background:#050505;box-shadow:0 0 0 4px #050505">
-                <div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full" style="background:#1ab600;box-shadow:0 0 8px rgba(26,182,0,0.6)"></div>
-              </div>
-              <p class="text-gray-300 text-sm sm:text-base leading-relaxed">Cansaço crônico e vazio vão virar energia vital. Você vai querer viver, não apenas sobreviver.</p>
-            </li>
-            <li class="relative flex items-start gap-2 sm:gap-4 z-10">
-              <div class="flex-shrink-0 mt-1 sm:mt-2 relative" style="background:#050505;box-shadow:0 0 0 4px #050505">
-                <div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full" style="background:#1ab600;box-shadow:0 0 8px rgba(26,182,0,0.6)"></div>
-              </div>
-              <p class="text-gray-300 text-sm sm:text-base leading-relaxed">Vai fazer parte de uma tribo de homens conscientes que se apoiam. Muito além dos 4 dias.</p>
-            </li>
-          </ul>
-        </div>
-
+<!-- ========== DECISÃO FINAL ========== -->
+<section class="relative py-8 sm:py-16 overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 bg-cover bg-center scale-110" style="background-image:url('https://sagradohomem.net.br/images/galeria_03.webp')"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-[#0a1510] opacity-95"></div>
+  </div>
+  <div class="container mx-auto px-4 relative z-10 max-w-3xl">
+    <div class="flex flex-col items-center text-center gap-4 sm:gap-4">
+      <div>
+        <span class="inline-block py-1 px-4 rounded bg-verde/10 border border-verde/30 text-verde text-sm font-bold tracking-widest uppercase mb-2 sm:mb-4">Decisão Final</span>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">Você chegou até aqui. <br><span class="text-white/80 text-base sm:text-xl lg:text-2xl block mt-2 font-medium">Agora tem apenas duas escolhas.</span></h2>
       </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SEÇÃO OFERTA / PREÇO
-       ============================================================ -->
-  <section id="oferta" class="relative flex items-center justify-center overflow-hidden py-8 sm:py-16 lg:py-32" style="min-height:80vh">
-    <div class="absolute inset-0 z-0 bg-cover bg-center" style="background-image:url('https://sagradohomem.net.br/images/meditacao.webp')">
-      <div class="absolute inset-0" style="background:linear-gradient(to top,black,rgba(0,0,0,0.8),rgba(0,0,0,0.6))"></div>
-    </div>
-
-    <div class="relative z-10 container mx-auto px-4 text-center" style="max-width:56rem;">
-      <div class="flex flex-col items-center justify-center gap-2 sm:gap-4 mb-8 sm:mb-16">
-        <div class="flex items-center gap-2 sm:gap-4" style="color:#d4e157">
-          <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
-          <span class="text-lg sm:text-2xl lg:text-3xl font-bold text-white">14 a 17 de fevereiro de 2026</span>
-        </div>
-        <a href="https://maps.google.com/?q=Chácara+Oca+da+Ana+Franco+da+Rocha+SP" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 sm:px-8 py-2 rounded-full text-gray-300 text-sm uppercase tracking-wider transition-colors" style="border:1px solid rgba(212,225,87,0.3);background:rgba(212,225,87,0.05)">
-          <span>Franco da Rocha, SP</span>
-        </a>
+      <div class="flex flex-col gap-2 sm:gap-4 w-full max-w-xl">
+        <div class="flex items-center gap-3 sm:gap-4 p-4 rounded-lg border border-red-500/40 bg-red-950/20"><div class="w-8 h-8 shrink-0 rounded-full bg-red-500/20 border border-red-500/50 flex items-center justify-center"><svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></div><p class="text-white text-sm sm:text-base leading-snug text-left">Ignorar este chamado e continuar com os mesmos resultados.</p></div>
+        <div class="flex items-center gap-3 sm:gap-4 p-4 rounded-lg border-2 border-verde bg-verde/10"><div class="w-8 h-8 shrink-0 rounded-full bg-verde/20 border border-verde flex items-center justify-center"><svg class="w-4 h-4 text-verde" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></div><p class="text-white text-sm sm:text-base leading-snug font-medium text-left">Garantir a sua vaga e passar pela transformação ao Passar Pelo <img alt="Prisma" class="inline h-3 sm:h-4 w-auto align-middle" src="https://sagradohomem.net.br/images/prisma-escrito.webp">.</p></div>
       </div>
-
-      <div class="mb-4 sm:mb-8">
-        <div class="inline-block border border-gray-600 px-4 sm:px-8 py-2 rounded-md" style="background:rgba(0,0,0,0.4)">
-          <p class="text-gray-300 uppercase tracking-widest text-sm sm:text-base font-medium">Apenas 20 vagas</p>
+      <!-- Countdown + CTA -->
+      <div class="bg-white/5 border border-white/10 p-4 sm:p-8 rounded-2xl text-center w-full max-w-md">
+        <div class="flex items-center justify-center gap-4 mb-4 text-white">
+          <div class="text-center"><div class="text-xl sm:text-2xl font-bold font-mono text-verde" id="cd-days">00</div><div class="text-xs uppercase tracking-wider text-white/70">Dias</div></div>
+          <div class="text-lg font-bold text-white/50">:</div>
+          <div class="text-center"><div class="text-xl sm:text-2xl font-bold font-mono text-verde" id="cd-hours">00</div><div class="text-xs uppercase tracking-wider text-white/70">Horas</div></div>
+          <div class="text-lg font-bold text-white/50">:</div>
+          <div class="text-center"><div class="text-xl sm:text-2xl font-bold font-mono text-verde" id="cd-min">00</div><div class="text-xs uppercase tracking-wider text-white/70">Min</div></div>
+          <div class="text-lg font-bold text-white/50">:</div>
+          <div class="text-center"><div class="text-xl sm:text-2xl font-bold font-mono text-verde" id="cd-sec">00</div><div class="text-xs uppercase tracking-wider text-white/70">Seg</div></div>
         </div>
-      </div>
-
-      <div class="mb-8 sm:mb-16">
-        <div class="mb-2">
-          <span class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white tracking-tight">
-            <span class="text-xl sm:text-2xl lg:text-4xl text-gray-400 font-normal mr-2">12x</span>R$ 196,19
-          </span>
-        </div>
-        <p class="text-gray-400 text-base sm:text-lg lg:text-xl">ou R$ 1.897 à vista</p>
-      </div>
-
-      <div class="mb-8 sm:mb-16">
-        <button type="button"
-          class="group relative inline-flex items-center justify-center gap-2 sm:gap-3 text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 rounded-full overflow-hidden transition-all duration-300 border cursor-pointer w-full sm:w-auto"
-          style="background:linear-gradient(to bottom,#2ad100,#148f00);box-shadow:0 0 40px rgba(26,182,0,0.6);border-color:rgba(204,255,0,0.3)"
-          onmouseover="this.style.boxShadow='0 0 60px rgba(26,182,0,0.8)';this.style.transform='translateY(-4px)'"
-          onmouseout="this.style.boxShadow='0 0 40px rgba(26,182,0,0.6)';this.style.transform='translateY(0)'"
-        >
-          <div class="absolute inset-x-0 top-0 h-[2px]" style="background:linear-gradient(to right,transparent,rgba(204,255,0,0.5),transparent)"></div>
-          <span class="relative z-10 uppercase tracking-wider">GARANTIR MINHA TRANSFORMAÇÃO</span>
-          <svg class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-        </button>
-      </div>
-
-      <div class="flex flex-wrap justify-center gap-4 sm:gap-16 pb-8 border-t border-white/10 pt-8">
-        <div class="flex items-center gap-2 sm:gap-4 text-gray-400 text-sm">
-          <svg class="w-5 h-5" style="color:#1ab600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          <div class="text-left leading-tight">
-            <p class="font-bold text-gray-300">COMPRA SEGURA</p>
-            <p>Dados protegidos</p>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 sm:gap-4 text-gray-400 text-sm">
-          <svg class="w-5 h-5" style="color:#1ab600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path><path d="m9 12 2 2 4-4"></path></svg>
-          <div class="text-left leading-tight">
-            <p class="font-bold text-gray-300">SATISFAÇÃO</p>
-            <p>Garantia de 7 dias</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SEÇÃO - GUIAS
-       ============================================================ -->
-  <section class="relative py-8 sm:py-16 lg:py-32 overflow-hidden" style="background:#fcfbf7">
-    <div class="container mx-auto px-4 sm:px-8" style="max-width:80rem;">
-      <div class="text-center mb-8 sm:mb-16 lg:mb-32">
-        <div class="inline-block p-2 px-4 rounded-full mb-4 border" style="background:rgba(26,182,0,0.05);border-color:rgba(26,182,0,0.1)">
-          <span class="font-semibold tracking-wider text-sm uppercase" style="color:#1ab600">Nossos Guias</span>
-        </div>
-        <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-gray-900 mb-4 lg:mb-8 tracking-tight">
-          Quem está à frente <br class="hidden md:block">
-          <span class="relative inline-block">do movimento
-            <svg class="absolute w-full h-2 left-0 -bottom-1 opacity-60" viewBox="0 0 100 10" preserveAspectRatio="none" style="color:#d4e157"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="4" fill="none"></path></svg>
-          </span>
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-8 lg:gap-16 max-w-4xl mx-auto">
-
-        <div class="group">
-          <div class="mb-4 sm:mb-8 relative mx-auto w-full max-w-[200px] sm:max-w-[240px] lg:max-w-none aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-xl" style="box-shadow-color:rgba(26,182,0,0.1)">
-            <img
-              alt="Rodolfo Barizon"
-              src="https://sagradohomem.net.br/images/rodolfo.webp"
-              class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-              style="filter:grayscale(10%)"
-            >
-          </div>
-          <div class="text-center lg:text-left">
-            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 group-hover:text-verde-claro transition-colors" style="color:#1a1a1a">Rodolfo Barizon</h3>
-            <div class="w-16 h-1 mb-4 mx-auto lg:mx-0 rounded-full" style="background:rgba(212,225,87,0.5)"></div>
-            <div class="space-y-2 sm:space-y-4">
-              <p class="text-gray-500 text-sm sm:text-base leading-relaxed text-left">Empresário de 36 anos, apaixonado por natureza, música e desenvolvimento pessoal. Pai e esposo dedicado, vive com propósito e tem como missão ajudar pessoas a se desenvolverem e despertarem seu potencial.</p>
-              <p class="text-gray-500 text-sm sm:text-base leading-relaxed text-left">Movido por coragem e disciplina, acredita que o verdadeiro crescimento nasce da constância e da superação diária.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="group">
-          <div class="mb-4 sm:mb-8 relative mx-auto w-full max-w-[200px] sm:max-w-[240px] lg:max-w-none aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 shadow-sm transition-all duration-500 group-hover:shadow-xl">
-            <img
-              alt="César Frezza"
-              src="https://sagradohomem.net.br/images/cesar.webp"
-              class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-              style="filter:grayscale(10%)"
-            >
-          </div>
-          <div class="text-center lg:text-left">
-            <h3 class="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-2 transition-colors">César Frezza</h3>
-            <div class="w-16 h-1 mb-4 mx-auto lg:mx-0 rounded-full" style="background:rgba(212,225,87,0.5)"></div>
-            <div class="space-y-2 sm:space-y-4">
-              <p class="text-gray-500 text-sm sm:text-base leading-relaxed text-left">Sound Healer e Reikiano de 33 anos, abandonou a carreira bancária para seguir um chamado mais profundo: compreender a consciência integrando ciência, espiritualidade e autoconhecimento.</p>
-              <p class="text-gray-500 text-sm sm:text-base leading-relaxed text-left">Hoje atua como facilitador de expansão da consciência, unindo música, respiração e enteógenos em contextos terapêuticos.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       SEÇÃO - DECISÃO FINAL
-       ============================================================ -->
-  <section class="relative py-8 sm:py-16 overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-cover bg-center lg:bg-fixed scale-110" style="background-image:url('https://sagradohomem.net.br/images/galeria_03.webp')"></div>
-      <div class="absolute inset-0 opacity-95" style="background:linear-gradient(to bottom,black,rgba(0,0,0,0.9),#0a1510)"></div>
-    </div>
-    <div class="container mx-auto px-4 relative z-10 max-w-3xl">
-      <div class="flex flex-col items-center text-center gap-4 sm:gap-4">
-        <div>
-          <span class="inline-block py-1 px-4 rounded text-sm font-bold tracking-widest uppercase mb-2 sm:mb-4" style="background:rgba(26,182,0,0.1);border:1px solid rgba(26,182,0,0.3);color:#1ab600">Decisão Final</span>
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
-            Você chegou até aqui. <br>
-            <span class="text-white/80 text-base sm:text-xl lg:text-2xl block mt-2 font-medium">Agora tem apenas duas escolhas.</span>
-          </h2>
-        </div>
-        <div class="flex flex-col gap-2 sm:gap-4 w-full max-w-xl">
-          <div class="flex items-center gap-3 sm:gap-4 p-4 rounded-lg border" style="border-color:rgba(239,68,68,0.4);background:rgba(70,8,9,0.2)">
-            <div class="w-8 h-8 shrink-0 rounded-full flex items-center justify-center" style="background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.5)">
-              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </div>
-            <p class="text-white text-sm sm:text-base leading-snug text-left">Ignorar este chamado e continuar com os mesmos resultados.</p>
-          </div>
-          <div class="flex items-center gap-3 sm:gap-4 p-4 rounded-lg border-2" style="border-color:#1ab600;background:rgba(26,182,0,0.1)">
-            <div class="w-8 h-8 shrink-0 rounded-full flex items-center justify-center" style="background:rgba(26,182,0,0.2);border:1px solid #1ab600">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="#1ab600" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-            </div>
-            <p class="text-white text-sm sm:text-base leading-snug font-medium text-left">Garantir a sua vaga e passar pela transformação ao Passar Pelo Prisma.</p>
-          </div>
-        </div>
-
-        <div class="border border-white/10 p-4 sm:p-8 rounded-2xl text-center w-full max-w-md" style="background:rgba(255,255,255,0.05)">
-          <div class="flex flex-col gap-2 sm:gap-4">
-            <button type="button"
-              class="group relative inline-flex items-center justify-center gap-2 sm:gap-3 text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden transition-all duration-300 border cursor-pointer w-full"
-              style="background:linear-gradient(to bottom,#2ad100,#148f00);box-shadow:0 0 40px rgba(26,182,0,0.6);border-color:rgba(204,255,0,0.3)"
-              onmouseover="this.style.boxShadow='0 0 60px rgba(26,182,0,0.8)'"
-              onmouseout="this.style.boxShadow='0 0 40px rgba(26,182,0,0.6)'"
-            >
-              <span class="relative z-10 uppercase tracking-wider">QUERO PARTICIPAR</span>
-              <svg class="w-4 h-4 relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
-            </button>
-            <a href="https://wa.me/5511930032464?text=Olá%2C+vim+pelo+site%21" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 py-4 rounded-lg border border-white/20 hover:bg-white/5 hover:border-white/40 text-white transition-all text-sm sm:text-base font-medium">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
-              Tirar dúvidas no WhatsApp
-            </a>
-          </div>
-          <div class="mt-4 flex items-center justify-center gap-2 text-sm text-white">
-            <div class="w-2 h-2 rounded-full" style="background:#1ab600"></div>
-            <span>Risco Zero • 7 dias de garantia</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       FOOTER
-       ============================================================ -->
-  <footer class="border-t border-gray-800" style="background:#000">
-    <div class="container mx-auto px-4 py-10 sm:py-12" style="max-width:64rem;">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-        <div class="text-center sm:text-left">
-          <img
-            alt="Sagrado Homem"
-            src="https://sagradohomem.net.br/images/logo.webp"
-            class="h-8 sm:h-10 w-auto mb-4 mx-auto sm:mx-0"
-          >
-          <p class="text-gray-400 text-sm leading-relaxed">Retiro de transformação masculina que une Medicina Ancestral, Ayahuasca e Neurociência.</p>
-        </div>
-        <div class="text-center sm:text-left">
-          <h4 class="text-white font-bold text-sm uppercase tracking-wide mb-4">Links Importantes</h4>
-          <nav class="flex flex-col gap-2">
-            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors text-sm">Política de Privacidade</a>
-            <a href="#" class="text-gray-400 hover:text-green-400 transition-colors text-sm">Termos de Uso</a>
-            <a href="https://payment.ticto.app/O49C521C7" class="text-gray-400 hover:text-green-400 transition-colors text-sm">Inscreva-se</a>
-          </nav>
-        </div>
-        <div class="text-center sm:text-left">
-          <h4 class="text-white font-bold text-sm uppercase tracking-wide mb-4">Contato</h4>
-          <a href="mailto:contato@sagradohomem.net.br" class="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors text-sm mb-3 justify-center sm:justify-start">
-            <span>contato@sagradohomem.net.br</span>
+        <div class="flex flex-col gap-2 sm:gap-4">
+          <button onclick="window.open('https://payment.ticto.app/O49C521C7','_blank')" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.6)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] hover:-translate-y-1 transition-all duration-300 border border-verde-claro/30 cursor-pointer w-full">
+            <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-verde-claro/50 to-transparent"></div>
+            <span class="relative z-10 uppercase tracking-wider">QUERO PARTICIPAR</span>
+            <svg class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+          </button>
+          <a href="https://wa.me/5511930032464?text=Olá%2C+vim+pelo+site%21" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 py-4 rounded-lg border border-white/20 hover:bg-white/5 hover:border-white/40 text-white transition-all text-sm font-medium">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+            Tirar dúvidas no WhatsApp
           </a>
-          <a href="https://wa.me/5511930032464" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-gray-400 hover:text-green-400 transition-colors text-sm mb-4 justify-center sm:justify-start">
-            <span>(11) 93003-2464</span>
-          </a>
-          <div class="flex items-center gap-4 justify-center sm:justify-start">
-            <a href="https://instagram.com/rodsbarizon" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-verde/20 flex items-center justify-center transition-colors group" aria-label="Instagram">
-              <svg class="w-5 h-5 text-gray-400 group-hover:text-green-400 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-            </a>
-            <a href="https://wa.me/5511930032464" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center transition-colors group" aria-label="WhatsApp">
-              <svg class="w-5 h-5 text-gray-400 group-hover:text-green-400 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
-            </a>
-          </div>
+        </div>
+        <div class="mt-4 flex items-center justify-center gap-2 text-sm text-white"><div class="w-2 h-2 rounded-full bg-verde"></div><span>Risco Zero • 7 dias de garantia</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-preto border-t border-gray-800">
+  <div class="container mx-auto px-4 py-10 sm:py-12 max-w-5xl">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+      <div class="text-center sm:text-left">
+        <img alt="Sagrado Homem" class="h-8 sm:h-10 w-auto mb-4 mx-auto sm:mx-0" src="https://sagradohomem.net.br/images/logo.webp">
+        <p class="text-gray-400 text-sm leading-relaxed">Retiro de transformação masculina que une Medicina Ancestral, Ayahuasca e Neurociência.</p>
+      </div>
+      <div class="text-center sm:text-left">
+        <h4 class="text-white font-bold text-sm uppercase tracking-wide mb-4">Links Importantes</h4>
+        <nav class="flex flex-col gap-2">
+          <a href="#" class="text-gray-400 hover:text-verde-claro transition-colors text-sm">Política de Privacidade</a>
+          <a href="#" class="text-gray-400 hover:text-verde-claro transition-colors text-sm">Termos de Uso</a>
+          <a href="https://payment.ticto.app/O49C521C7" class="text-gray-400 hover:text-verde-claro transition-colors text-sm">Inscreva-se</a>
+        </nav>
+      </div>
+      <div class="text-center sm:text-left">
+        <h4 class="text-white font-bold text-sm uppercase tracking-wide mb-4">Contato</h4>
+        <a href="mailto:contato@sagradohomem.net.br" class="flex items-center gap-2 text-gray-400 hover:text-verde-claro transition-colors text-sm mb-3 justify-center sm:justify-start"><span>contato@sagradohomem.net.br</span></a>
+        <a href="https://wa.me/5511930032464" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-gray-400 hover:text-verde-claro transition-colors text-sm mb-4 justify-center sm:justify-start"><span>(11) 93003-2464</span></a>
+        <div class="flex items-center gap-4 justify-center sm:justify-start">
+          <a href="https://instagram.com/rodsbarizon" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-verde/20 flex items-center justify-center transition-colors group" aria-label="Instagram"><svg class="w-5 h-5 text-gray-400 group-hover:text-verde-claro transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg></a>
+          <a href="https://wa.me/5511930032464" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-800 hover:bg-verde/20 flex items-center justify-center transition-colors group" aria-label="WhatsApp"><svg class="w-5 h-5 text-gray-400 group-hover:text-verde-claro transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg></a>
         </div>
       </div>
     </div>
-    <div class="border-t border-gray-800">
-      <div class="container mx-auto px-4 py-4 sm:py-6" style="max-width:64rem;">
-        <p class="text-gray-500 text-xs text-center">© 2026 Sagrado Homem - Todos os direitos reservados</p>
-      </div>
+  </div>
+  <div class="border-t border-gray-800">
+    <div class="container mx-auto px-4 py-4 sm:py-6 max-w-5xl">
+      <p class="text-gray-500 text-xs text-center">© 2026 Sagrado Homem - Todos os direitos reservados</p>
     </div>
-  </footer>
+  </div>
+</footer>
 
 </main>
 
 <script>
-  // Interatividade dos checkboxes
-  document.querySelectorAll('.flex.items-start.gap-3').forEach(item => {
-    const checkbox = item.querySelector('.rounded.flex');
-    if (!checkbox) return;
-    item.addEventListener('click', () => {
-      const checked = checkbox.dataset.checked === 'true';
-      if (checked) {
-        checkbox.dataset.checked = 'false';
-        checkbox.style.background = '';
-        checkbox.innerHTML = '';
-        checkbox.style.borderColor = 'rgba(255,255,255,0.4)';
-      } else {
-        checkbox.dataset.checked = 'true';
-        checkbox.style.background = '#1ab600';
-        checkbox.style.borderColor = '#1ab600';
-        checkbox.innerHTML = '<svg class="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>';
-      }
-    });
-  });
-</script>
+  // Tenta revelar YouTube bg se a página estiver em HTTP(S)
+  if (location.protocol !== 'file:') {
+    const ytBg = document.getElementById('yt-bg');
+    if (ytBg) setTimeout(() => { ytBg.style.opacity = '1'; }, 3000);
+  }
 
+  // Loading screen
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const el = document.getElementById('loading-screen');
+      el.style.opacity = '0';
+      el.style.transition = 'opacity 0.6s ease';
+      setTimeout(() => el.style.display = 'none', 600);
+    }, 1800);
+  });
+
+  // Checklist
+  function toggleCheck(row) {
+    const box = row.querySelector('div');
+    const checked = box.dataset.checked === '1';
+    if (checked) {
+      box.dataset.checked = '0';
+      box.style.background = '';
+      box.style.borderColor = 'rgba(255,255,255,0.4)';
+      box.innerHTML = '';
+    } else {
+      box.dataset.checked = '1';
+      box.style.background = '#1ab600';
+      box.style.borderColor = '#1ab600';
+      box.innerHTML = '<svg class="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+    }
+  }
+
+  // Tabs
+  function switchTab(btn, tabId) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active');
+      b.classList.add('bg-black/50','border','border-gray-700','text-gray-300');
+      b.classList.remove('text-black');
+    });
+    btn.classList.add('active');
+    btn.classList.remove('bg-black/50','border','border-gray-700','text-gray-300');
+    btn.classList.add('text-black');
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  // Countdown to 2026-02-14
+  function updateCountdown() {
+    const target = new Date('2026-02-14T08:00:00-03:00').getTime();
+    const now = Date.now();
+    const diff = target - now;
+    if (diff <= 0) { ['cd-days','cd-hours','cd-min','cd-sec'].forEach(id => document.getElementById(id).textContent = '00'); return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-min').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-sec').textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
 </body>
 </html>
