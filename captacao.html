@@ -678,6 +678,28 @@
       </div>
     </div>
 
+    <!-- Área de mensagem WhatsApp -->
+    <div style="background:rgba(26,182,0,0.06);border:1px solid rgba(26,182,0,0.2);border-radius:16px;padding:20px 24px;margin-bottom:24px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(26,182,0,0.7);margin-bottom:10px;">Mensagem WhatsApp</div>
+      <textarea id="_wha-msg" placeholder="Escreva sua mensagem aqui. Use {nome} para o nome do lead." style="width:100%;min-height:80px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px;color:#fff;font-size:13px;line-height:1.6;resize:vertical;outline:none;font-family:inherit;box-sizing:border-box;">Olá {nome}! Vi que você demonstrou interesse no Sagrado Homem 2027. Quero conversar com você sobre isso. Tem um momento?</textarea>
+    </div>
+
+    <!-- Modal edição -->
+    <div id="_edit-modal" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;">
+      <div style="background:#111;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:32px;width:100%;max-width:480px;margin:24px;">
+        <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:24px;">Editar Lead</div>
+        <input type="hidden" id="_edit-id">
+        <div style="margin-bottom:14px;"><label style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:6px;">Nome</label><input id="_edit-nome" type="text" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;"></div>
+        <div style="margin-bottom:14px;"><label style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:6px;">Celular</label><input id="_edit-cel" type="text" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;"></div>
+        <div style="margin-bottom:14px;"><label style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:6px;">Email</label><input id="_edit-email" type="text" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;color:#fff;font-size:14px;outline:none;box-sizing:border-box;"></div>
+        <div style="margin-bottom:24px;"><label style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:700;text-transform:uppercase;letter-spacing:0.1em;display:block;margin-bottom:6px;">Resposta</label><textarea id="_edit-resp" rows="4" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;color:#fff;font-size:13px;outline:none;box-sizing:border-box;resize:vertical;font-family:inherit;"></textarea></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;">
+          <button onclick="_editClose()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:9999px;padding:10px 22px;color:rgba(255,255,255,0.5);font-size:13px;font-weight:700;cursor:pointer;">Cancelar</button>
+          <button onclick="_editSave()" style="background:#1ab600;border:none;border-radius:9999px;padding:10px 22px;color:#000;font-size:13px;font-weight:800;cursor:pointer;">Salvar</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Tabela wrapper -->
     <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:rgba(8,8,8,0.9);">
       <div style="overflow-x:auto;">
@@ -818,12 +840,20 @@
       return;
     }
 
+    _leadsCache = leads;
+
     const rows = leads.map(function(l, i) {
       const dt = new Date(l.created_at);
       const data = dt.toLocaleDateString('pt-BR') + '<br><span style="color:rgba(255,255,255,0.3);font-size:11px;">' + dt.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit'}) + '</span>';
       const resposta = l.resposta ? _esc(l.resposta) : '<span style="color:rgba(255,255,255,0.2)">—</span>';
       const celular = l.celular ? _fmt(l.celular) : '—';
       const num = leads.length - i;
+      const id = _esc(l.id);
+      const celRaw = _esc(l.celular || '');
+
+      const btnEdit = '<button onclick="_editOpen(\'' + id + '\')" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:5px 10px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background=\'rgba(255,255,255,0.15)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.08)\'">✏ Editar</button>';
+      const btnDel = '<button onclick="_deleteLead(\'' + id + '\')" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:6px;padding:5px 10px;color:#f87171;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background=\'rgba(239,68,68,0.2)\'" onmouseout="this.style.background=\'rgba(239,68,68,0.1)\'">✕ Excluir</button>';
+      const btnWha = '<button onclick="_whaLead(\'' + celRaw + '\')" style="background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.35);border-radius:6px;padding:5px 10px;color:#25d366;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background=\'rgba(37,211,102,0.25)\'" onmouseout="this.style.background=\'rgba(37,211,102,0.12)\'">● WA</button>';
 
       return '<tr>' +
         '<td style="color:rgba(255,255,255,0.3);font-size:11px;text-align:center;width:36px;">' + num + '</td>' +
@@ -832,16 +862,67 @@
         '<td style="white-space:nowrap;font-family:monospace;font-size:12px;">' + celular + '</td>' +
         '<td style="font-size:12px;color:rgba(204,255,0,0.8);">' + _esc(l.email || '—') + '</td>' +
         '<td class="_resp">' + resposta + '</td>' +
+        '<td style="white-space:nowrap;"><div style="display:flex;gap:6px;">' + btnEdit + btnDel + btnWha + '</div></td>' +
       '</tr>';
     }).join('');
 
     document.getElementById('_adm-table').innerHTML =
       '<table class="_at">' +
         '<thead><tr>' +
-          '<th>#</th><th>Data</th><th>Nome</th><th>Celular</th><th>Email</th><th>Resposta</th>' +
+          '<th>#</th><th>Data</th><th>Nome</th><th>Celular</th><th>Email</th><th>Resposta</th><th>Ações</th>' +
         '</tr></thead>' +
         '<tbody>' + rows + '</tbody>' +
       '</table>';
+  }
+
+  let _leadsCache = [];
+
+  // ===== WHATSAPP =====
+  function _whaLead(cel) {
+    if (!cel) { alert('Este lead não tem celular cadastrado.'); return; }
+    const msg = document.getElementById('_wha-msg').value.trim();
+    const numero = '55' + cel.replace(/\D/g,'');
+    const texto = encodeURIComponent(msg);
+    window.open('https://wa.me/' + numero + '?text=' + texto, '_blank');
+  }
+
+  // ===== EDITAR =====
+  function _editOpen(id) {
+    const l = _leadsCache.find(function(x){ return x.id === id; });
+    if (!l) return;
+    document.getElementById('_edit-id').value = id;
+    document.getElementById('_edit-nome').value = l.nome || '';
+    document.getElementById('_edit-cel').value = l.celular || '';
+    document.getElementById('_edit-email').value = l.email || '';
+    document.getElementById('_edit-resp').value = l.resposta || '';
+    const m = document.getElementById('_edit-modal');
+    m.style.display = 'flex';
+  }
+
+  function _editClose() {
+    document.getElementById('_edit-modal').style.display = 'none';
+  }
+
+  async function _editSave() {
+    const id = document.getElementById('_edit-id').value;
+    const payload = {
+      nome: document.getElementById('_edit-nome').value.trim(),
+      celular: document.getElementById('_edit-cel').value.trim(),
+      email: document.getElementById('_edit-email').value.trim(),
+      resposta: document.getElementById('_edit-resp').value.trim()
+    };
+    const { error } = await _sb.from('sh_leads').update(payload).eq('id', id);
+    if (error) { alert('Erro ao salvar: ' + error.message); return; }
+    _editClose();
+    _admRefresh();
+  }
+
+  // ===== EXCLUIR =====
+  async function _deleteLead(id) {
+    if (!confirm('Excluir este lead? Essa ação não pode ser desfeita.')) return;
+    const { error } = await _sb.from('sh_leads').delete().eq('id', id);
+    if (error) { alert('Erro ao excluir: ' + error.message); return; }
+    _admRefresh();
   }
 
   function _esc(s) {
