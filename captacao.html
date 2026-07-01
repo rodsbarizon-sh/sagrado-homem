@@ -1100,13 +1100,14 @@ function _revealForm() {
       origem: 'sh2027-captacao',
     };
 
-    try {
-      const { error } = await _sb.from('sh_leads').insert([payload]);
-      if (error) throw error;
-    } catch(err) {
-      // Se Supabase não estiver configurado ainda, mostra sucesso mesmo assim
-      // (remova o catch após configurar o Supabase)
-      console.warn('[SH27] Supabase não configurado ou erro:', err);
+    const { error: insertErr } = await _sb.from('sh_leads').insert([payload]);
+    if (insertErr) {
+      console.error('[SH27] Erro ao salvar lead:', insertErr);
+      btn.disabled = false;
+      btnText.classList.remove('hidden');
+      btnLoading.classList.add('hidden');
+      alert('Erro ao enviar. Tente novamente.');
+      return;
     }
 
     // Exibe sucesso
