@@ -778,7 +778,7 @@ function _revealForm() {
 <script>
   const _SB_URL = 'https://qqqbcbkwudipncnzcvzv.supabase.co';
   const _SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxcWJjYmt3dWRpcG5jbnpjdnp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI2MDA1MTAsImV4cCI6MjA5ODE3NjUxMH0.hey5Ebaj1QdSpDWImGlb1F2Z_e9RK3qzlR9L_qFf_nc';
-  const _sb = supabase.createClient(_SB_URL, _SB_KEY);
+  const _sb = supabase.createClient(_SB_URL, _SB_KEY, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
 
   const _c1 = [114,111,100,115];
   const _c2 = [76,111,115,116,52,56,55,53,36];
