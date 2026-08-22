@@ -650,7 +650,7 @@
 
   // Loading screen — loop infinito no domínio oficial; beta mostra a página direto
   (function() {
-    const isBeta = location.hostname.includes('vercel.app') || location.hostname === 'localhost';
+    const isBeta = true; // página liberada
     if (isBeta) {
       const el = document.getElementById('loading-screen');
       el.style.display = 'none';
