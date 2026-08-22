@@ -119,12 +119,11 @@
     <div class="mb-6 sm:mb-8 relative sm:max-w-4xl lg:max-w-5xl -mx-4 sm:mx-auto">
       <div class="relative rounded-none sm:rounded-xl overflow-hidden shadow-lg sm:shadow-2xl sm:p-[1px] sm:bg-gradient-to-b sm:from-white/20 sm:to-white/5">
         <div class="relative w-full rounded-none sm:rounded-lg overflow-hidden bg-black aspect-video">
-          <iframe id="hero-video" class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/c0Mj_2G0Pok?autoplay=1&mute=1&loop=1&playlist=c0Mj_2G0Pok&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1" frameborder="0" allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="Sagrado Homem - Vídeo"></iframe>
+          <iframe id="hero-video" class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/c0Mj_2G0Pok?autoplay=1&mute=1&loop=1&playlist=c0Mj_2G0Pok&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&cc_load_policy=0&iv_load_policy=3" frameborder="0" allow="autoplay; fullscreen; encrypted-media" allowfullscreen title="Sagrado Homem - Vídeo"></iframe>
           <!-- overlay bloqueia cliques no YouTube (logo, título, links) -->
           <div class="absolute inset-0 z-10" style="pointer-events:auto;"></div>
-          <!-- mascara legenda automatica do YouTube (rodape) -->
-          <div class="absolute bottom-0 left-0 right-0 z-10 bg-black" style="height:18%;pointer-events:none;"></div>
-          <div class="absolute inset-0 flex items-center justify-center cursor-pointer z-20" id="sound-btn" onclick="(function(){var f=document.getElementById('hero-video');f.src='https://www.youtube.com/embed/c0Mj_2G0Pok?autoplay=1&mute=0&loop=1&playlist=c0Mj_2G0Pok&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1';document.getElementById('sound-btn').style.display='none';})()">
+
+          <div class="absolute inset-0 flex items-center justify-center cursor-pointer z-20" id="sound-btn" onclick="(function(){var f=document.getElementById('hero-video');f.src='https://www.youtube.com/embed/c0Mj_2G0Pok?autoplay=1&mute=0&loop=1&playlist=c0Mj_2G0Pok&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&cc_load_policy=0&iv_load_policy=3';document.getElementById('sound-btn').style.display='none';})()">
             <div class="group relative hover:scale-105 active:scale-95 transition-transform">
               <div class="relative flex items-center gap-3 sm:gap-5 bg-gradient-to-r from-verde to-[#159a00] px-4 sm:px-8 py-3 sm:py-5 rounded-full shadow-[0_10px_40px_rgba(26,182,0,0.4)] border border-white/20">
                 <div class="bg-black/20 p-2 sm:p-3 rounded-full">
