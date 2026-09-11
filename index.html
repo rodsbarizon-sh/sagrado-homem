@@ -4,7 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sagrado Homem - Retiro de Transformação Masculina</title>
-  <meta name="description" content="Retiro de transformação masculina com ayahuasca. 3 dias de imersão que unem Medicina Ancestral, Ayahuasca e Neurociência. Tudo incluso: alimentação, hospedagem e mudança de vida.">
+  <meta name="description" content="Sagrado Homem — retiro de imersão masculina. 3 dias para encarar o que trava você e reencontrar sua força, clareza e direção. Tudo incluso: alimentação e hospedagem. Apenas 12 vagas.">
+
+  <!-- Página de venda: acessada por link direto. Não indexar, não anunciar. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Open Graph explícito (evita a Meta inferir e cachear conteúdo indesejado) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Sagrado Homem">
+  <meta property="og:url" content="https://sagradohomem.net.br/">
+  <meta property="og:title" content="Sagrado Homem — Retiro de Transformação Masculina">
+  <meta property="og:description" content="3 dias de imersão para encarar o que trava você e reencontrar sua força, clareza e direção. Tudo incluso. Apenas 12 vagas.">
+  <meta property="og:image" content="https://sagradohomem.net.br/images/logo-prisma.webp">
+  <meta property="og:image:alt" content="Sagrado Homem">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="https://sagradohomem.net.br/favicon/favicon.ico" sizes="any">
   <link rel="icon" href="https://sagradohomem.net.br/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="https://sagradohomem.net.br/favicon/apple-touch-icon.png">
@@ -112,7 +126,7 @@
         <span class="text-black bg-verde px-3 py-1 rounded font-black shadow-[0_0_20px_rgba(204,255,0,0.4)] inline-block mx-1 uppercase tracking-wider">Homem</span>
       </h2>
       <p class="text-white text-xs sm:text-sm lg:text-lg font-medium mb-4 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
-        Passe pelo <img alt="Prisma" class="inline h-4 sm:h-5 lg:h-6 w-auto align-middle" src="/images/prisma-escrito.webp"> → O único método que une <strong class="text-verde-claro">Neurociência Avançada</strong> e <strong class="text-verde-claro">Sabedoria Ancestral</strong>.
+        Passe pelo <img alt="Prisma" class="inline h-4 sm:h-5 lg:h-6 w-auto align-middle" src="/images/prisma-escrito.webp"> → Um método que une <strong class="text-verde-claro">Neurociência Avançada</strong> e <strong class="text-verde-claro">Sabedoria Ancestral</strong>.
       </p>
     </div>
     <!-- Vídeo -->
@@ -162,7 +176,7 @@
           </div>
         </div>
       </div>
-      <button onclick="window.open('https://payment.ticto.app/O49C521C7','_blank')" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.6)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] hover:-translate-y-1 transition-all duration-300 border border-verde-claro/30 cursor-pointer">
+      <button onclick="abrirCheckout()" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.6)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] hover:-translate-y-1 transition-all duration-300 border border-verde-claro/30 cursor-pointer">
         <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-verde-claro/50 to-transparent"></div>
         <span class="relative z-10 uppercase tracking-wider">Quero Participar da Imersão</span>
         <svg class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
@@ -199,7 +213,7 @@
           </div>
           <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg cursor-pointer transition-colors hover:bg-white/5 border border-transparent" onclick="toggleCheck(this)">
             <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40 transition-colors"></div>
-            <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Viciado em pornografia, trabalho ou comida sem conseguir fugir do vazio?</p>
+            <p class="text-base lg:text-lg font-medium leading-snug text-gray-300">Foge pra pornografia, pro trabalho ou pra comida toda vez que o vazio aperta?</p>
           </div>
           <div class="flex items-start gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg cursor-pointer transition-colors hover:bg-white/5 border border-transparent" onclick="toggleCheck(this)">
             <div class="mt-0.5 w-5 h-5 sm:w-6 sm:h-6 rounded flex items-center justify-center shrink-0 border-2 border-white/40 transition-colors"></div>
@@ -255,8 +269,8 @@
           <div class="absolute left-[4px] sm:left-[5px] lg:left-[6px] top-2 h-[calc(100%-24px)] w-px border-l border-dashed border-verde/40 z-0"></div>
           <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">As pessoas que você ama vão sentir a diferença na hora. Mais calmo, presente, conectado. O homem que quem te ama merece.</p></li>
           <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">Sua procrastinação e dúvida vão diminuir. Vai tomar decisões com confiança, porque agora você tem uma direção clara.</p></li>
-          <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">Vai entender a raiz dos seus vícios — seja pornografia, álcool ou trabalho compulsivo. Vai ter ferramentas reais para aplicar no seu dia a dia.</p></li>
-          <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">Cansaço crônico e vazio vão virar energia vital. Você vai querer viver, não apenas sobreviver.</p></li>
+          <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">Vai olhar de frente pros comportamentos que usa pra anestesiar — pornografia, álcool, trabalho sem fim. E sai com ferramentas pra aplicar no dia a dia.</p></li>
+          <li class="relative flex items-start gap-2 sm:gap-4 pb-4 sm:pb-8 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">O cansaço que dormir não resolve e o vazio que você não sabe nomear ganham outro lugar. Você vai querer viver, não apenas sobreviver.</p></li>
           <li class="relative flex items-start gap-2 sm:gap-4 z-10"><div class="flex-shrink-0 mt-1 sm:mt-2 relative bg-[#050505]" style="box-shadow:0 0 0 4px #050505"><div class="w-2 h-2 sm:w-4 sm:h-4 rounded-full bg-verde shadow-[0_0_8px_rgba(26,182,0,0.6)]"></div></div><p class="text-gray-300 text-sm sm:text-base leading-relaxed">Vai fazer parte de uma tribo de homens conscientes que se apoiam. Muito além dos 3 dias.</p></li>
         </ul>
       </div>
@@ -301,7 +315,7 @@
 <section class="relative py-8 sm:py-16 lg:py-32 overflow-hidden bg-[#0D1A15] border-t border-white/5">
   <div class="relative z-10 container mx-auto px-4" style="max-width:80rem">
     <div class="text-center mb-8 sm:mb-16 lg:mb-32 flex flex-col items-center">
-      <span class="text-verde text-sm font-bold tracking-[0.2em] uppercase mb-2 sm:mb-4 block">O <img alt="Prisma" class="inline h-4 sm:h-5 w-auto align-middle" src="/images/prisma-escrito.webp">. Único método do Brasil que une neurociência, programação neurolinguística e medicina ancestral.</span>
+      <span class="text-verde text-sm font-bold tracking-[0.2em] uppercase mb-2 sm:mb-4 block">O <img alt="Prisma" class="inline h-4 sm:h-5 w-auto align-middle" src="/images/prisma-escrito.webp">. Um método que une neurociência, programação neurolinguística e medicina ancestral.</span>
       <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold text-white tracking-tight">Passe pelo <img alt="Prisma" class="inline h-5 sm:h-6 lg:h-12 w-auto align-middle" src="/images/prisma-escrito.webp"></h2>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
@@ -318,7 +332,7 @@
       <div class="flex flex-col items-start group">
         <div class="mb-4 sm:mb-8 opacity-90 group-hover:scale-110 transition-transform duration-300"><svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M8 10h8"></path><path d="M8 14h4"></path></svg></div>
         <h3 class="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-4 leading-tight group-hover:text-verde transition-colors duration-300">Neurolinguística</h3>
-        <div class="text-gray-300 text-sm sm:text-base leading-relaxed">Domine ferramentas de <strong class="text-[#BFF100] font-bold">PNL</strong> para ressignificar traumas, <strong class="text-[#BFF100] font-bold">quebrar âncoras</strong> emocionais negativas e instalar <strong class="text-[#BFF100] font-bold">novos recursos</strong> internos. Transforme a forma como você se comunica consigo mesmo e com o mundo.</div>
+        <div class="text-gray-300 text-sm sm:text-base leading-relaxed">Domine ferramentas de <strong class="text-[#BFF100] font-bold">PNL</strong> para trabalhar memórias que ainda pesam, <strong class="text-[#BFF100] font-bold">quebrar âncoras</strong> emocionais negativas e instalar <strong class="text-[#BFF100] font-bold">novos recursos</strong> internos. Transforme a forma como você se comunica consigo mesmo e com o mundo.</div>
       </div>
       <div class="flex flex-col items-start group">
         <div class="mb-4 sm:mb-8 opacity-90 group-hover:scale-110 transition-transform duration-300"><svg class="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 text-verde" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path></svg></div>
@@ -346,14 +360,14 @@
     <div class="absolute inset-0 aceleradores-bg"></div>
     <!-- YouTube como upgrade quando servido via HTTP -->
     <div id="yt-bg" class="hidden lg:block absolute inset-0 opacity-0 transition-opacity duration-1000" style="pointer-events:none">
-      <iframe class="absolute w-full h-full" style="min-width:177.78vh;min-height:100vw;left:50%;top:50%;transform:translate(-50%,-50%)" src="https://www.youtube.com/embed/1HdBnjZuCXI?autoplay=1&mute=1&loop=1&playlist=1HdBnjZuCXI&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen" title="Ayahuasca background video"></iframe>
+      <iframe class="absolute w-full h-full" style="min-width:177.78vh;min-height:100vw;left:50%;top:50%;transform:translate(-50%,-50%)" src="https://www.youtube.com/embed/1HdBnjZuCXI?autoplay=1&mute=1&loop=1&playlist=1HdBnjZuCXI&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1" frameborder="0" allow="autoplay; fullscreen" title="Vídeo de fundo"></iframe>
     </div>
   </div>
   <div class="absolute inset-0 z-[1] bg-black/70"></div>
   <div class="relative z-10 container mx-auto px-4" style="max-width:64rem">
     <div class="text-center mb-4 sm:mb-8">
       <h2 class="text-2xl sm:text-2xl lg:text-3xl font-bold text-white leading-tight">Aceleradores de <span class="text-verde">consciência</span>
-        <span class="text-base sm:text-lg font-medium text-white mt-2 block">Como acessamos em <span class="text-preto bg-gradient-to-r from-verde to-verde-claro px-2 py-0.5 rounded font-bold inline-block -rotate-1 mx-1">3 dias</span><br>o que precisa de anos de terapia</span>
+        <span class="text-base sm:text-lg font-medium text-white mt-2 block">Como acessamos em <span class="text-preto bg-gradient-to-r from-verde to-verde-claro px-2 py-0.5 rounded font-bold inline-block -rotate-1 mx-1">3 dias</span><br>o que a mente racional leva anos pra admitir</span>
       </h2>
     </div>
     <!-- Tabs -->
@@ -386,9 +400,9 @@
           <div class="flex-1">
             <h3 class="text-lg font-bold text-verde mb-4 text-left">O que a ciência diz sobre Ayahuasca</h3>
             <div class="space-y-4 text-white text-base text-left leading-relaxed">
-              <p>Estudos da Universidade de São Paulo e Johns Hopkins mostram redução significativa de depressão, ansiedade e TEPT após uma única sessão guiada.</p>
-              <p>A DMT presente na Ayahuasca ativa regiões do cérebro ligadas ao processamento de memórias e emoções, permitindo integração de experiências traumáticas.</p>
-              <p>Pesquisadores do Imperial College London documentaram aumento de plasticidade neural e novas conexões sinápticas por até 4 semanas após uso ritual.</p>
+              <p>USP e Johns Hopkins mantêm linhas de pesquisa sobre os efeitos de compostos psicoativos na saúde mental. É um campo em estudo — e o Sagrado Homem não é terapia, tratamento nem serviço de saúde.</p>
+              <p>A DMT presente na ayahuasca atua em regiões do cérebro ligadas a memória e emoção. É por isso que a experiência costuma ser descrita como mais profunda do que qualquer conversa.</p>
+              <p>Pesquisadores do Imperial College London investigam efeitos sobre plasticidade neural nas semanas seguintes ao uso ritual.</p>
             </div>
           </div>
         </div>
@@ -497,6 +511,58 @@
   </div>
 </section>
 
+<!-- ========== CONTRAINDICAÇÕES ========== -->
+<section class="relative py-12 sm:py-20" style="background:#050505">
+  <div class="container mx-auto px-4" style="max-width:46rem">
+    <div class="rounded-2xl border border-white/10 p-6 sm:p-10" style="background:rgba(255,255,255,0.03)">
+
+      <p class="text-xs font-bold tracking-[0.2em] uppercase mb-3" style="color:#d4e157">Segurança</p>
+      <h2 class="text-2xl sm:text-4xl font-bold text-white mb-5 leading-tight">Quem não pode participar</h2>
+
+      <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-7">
+        A medicina tem interações conhecidas com determinados medicamentos e condições de saúde.
+        Conduzir com responsabilidade significa dizer não quando é preciso — mesmo com vaga disponível.
+        Por isso, não aceitamos participantes que:
+      </p>
+
+      <ul class="space-y-4 mb-8">
+        <li class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-2.5" style="background:#1ab600"></span>
+          <span class="text-gray-300 text-sm sm:text-base leading-relaxed">
+            Façam uso de <strong class="text-white font-semibold">antidepressivos ISRS ou IMAO</strong>, ou tenham interrompido há menos de 6 semanas
+          </span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-2.5" style="background:#1ab600"></span>
+          <span class="text-gray-300 text-sm sm:text-base leading-relaxed">
+            Tenham histórico pessoal ou familiar de <strong class="text-white font-semibold">psicose, esquizofrenia ou transtorno bipolar</strong>
+          </span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-2.5" style="background:#1ab600"></span>
+          <span class="text-gray-300 text-sm sm:text-base leading-relaxed">
+            Tenham <strong class="text-white font-semibold">condição cardíaca, hipertensão grave ou epilepsia</strong>
+          </span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="flex-shrink-0 w-1.5 h-1.5 rounded-full mt-2.5" style="background:#1ab600"></span>
+          <span class="text-gray-300 text-sm sm:text-base leading-relaxed">
+            Estejam sob uso de <strong class="text-white font-semibold">outras substâncias psicoativas</strong>
+          </span>
+        </li>
+      </ul>
+
+      <div class="pt-6 border-t border-white/10">
+        <p class="text-gray-400 text-sm sm:text-base leading-relaxed">
+          Todo inscrito passa por uma <strong class="text-white font-semibold">triagem de saúde</strong> antes da confirmação.
+          Havendo qualquer contraindicação, o valor é <strong class="text-white font-semibold">devolvido integralmente</strong>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ========== OFERTA / PREÇO ========== -->
 <section id="oferta" class="relative flex items-center justify-center overflow-hidden py-8 sm:py-16 lg:py-32" style="min-height:80vh">
   <div class="absolute inset-0 z-0 bg-[#050505]">
@@ -516,7 +582,7 @@
       <p class="text-gray-400 text-base sm:text-lg lg:text-xl">ou R$ 2.997,11 à vista</p>
     </div>
     <div class="mb-8 sm:mb-16">
-      <button onclick="window.open('https://payment.ticto.app/O49C521C7','_blank')" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.6)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] hover:-translate-y-1 transition-all duration-300 border border-verde-claro/30 cursor-pointer w-full sm:w-auto">
+      <button onclick="abrirCheckout()" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 lg:px-12 py-3 sm:py-4 lg:py-5 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.6)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] hover:-translate-y-1 transition-all duration-300 border border-verde-claro/30 cursor-pointer w-full sm:w-auto">
         <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-verde-claro/50 to-transparent"></div>
         <span class="relative z-10 uppercase tracking-wider">GARANTIR MINHA TRANSFORMAÇÃO</span>
         <svg class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
@@ -593,7 +659,7 @@
           <div class="text-center"><div class="text-xl sm:text-2xl font-bold font-mono text-verde" id="cd-sec">00</div><div class="text-xs uppercase tracking-wider text-white/70">Seg</div></div>
         </div>
         <div class="flex flex-col gap-2 sm:gap-4">
-          <button onclick="window.open('https://payment.ticto.app/O49C521C7','_blank')" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.6)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] hover:-translate-y-1 transition-all duration-300 border border-verde-claro/30 cursor-pointer w-full">
+          <button onclick="abrirCheckout()" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-sm sm:text-base lg:text-xl px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.6)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] hover:-translate-y-1 transition-all duration-300 border border-verde-claro/30 cursor-pointer w-full">
             <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-verde-claro/50 to-transparent"></div>
             <span class="relative z-10 uppercase tracking-wider">QUERO PARTICIPAR</span>
             <svg class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
@@ -612,18 +678,10 @@
 <!-- ========== FOOTER ========== -->
 <footer class="bg-preto border-t border-gray-800">
   <div class="container mx-auto px-4 py-10 sm:py-12 max-w-5xl">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10">
       <div class="text-center sm:text-left">
         <img alt="Sagrado Homem" class="h-8 sm:h-10 w-auto mb-4 mx-auto sm:mx-0" src="/images/logo-2.webp">
         <p class="text-gray-400 text-sm leading-relaxed">Retiro de transformação masculina que une Medicina Ancestral, Ayahuasca e Neurociência.</p>
-      </div>
-      <div class="text-center sm:text-left">
-        <h4 class="text-white font-bold text-sm uppercase tracking-wide mb-4">Links Importantes</h4>
-        <nav class="flex flex-col gap-2">
-          <a href="#" class="text-gray-400 hover:text-verde-claro transition-colors text-sm">Política de Privacidade</a>
-          <a href="#" class="text-gray-400 hover:text-verde-claro transition-colors text-sm">Termos de Uso</a>
-          <a href="https://payment.ticto.app/O49C521C7" class="text-gray-400 hover:text-verde-claro transition-colors text-sm">Inscreva-se</a>
-        </nav>
       </div>
       <div class="text-center sm:text-left">
         <h4 class="text-white font-bold text-sm uppercase tracking-wide mb-4">Contato</h4>
@@ -664,7 +722,7 @@
       { tag: 'Sagrado Homem 2027', txt: 'Algo está sendo construído aqui.' },
       { tag: 'Março 2027', txt: 'Enquanto o Brasil segue igual...' },
       { tag: '3 dias que mudam tudo', txt: '...alguns homens vão encarar a deles.' },
-      { tag: 'P.R.I.S.M→△', txt: 'O único método que une Neurociência e Medicina Ancestral.' },
+      { tag: 'P.R.I.S.M→△', txt: 'Um método que une Neurociência e Medicina Ancestral.' },
       { tag: 'Em breve', txt: 'Uma experiência para poucos que têm coragem.' },
       { tag: 'Você está no lugar certo', txt: 'Se você sente que falta algo — aqui começa a resposta.' },
       { tag: 'Franco da Rocha · SP', txt: '3 dias fora da rotina. Uma vida diferente depois.' },
@@ -799,6 +857,113 @@
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
+</script>
+
+<!-- Modal de Checkout Asaas -->
+<div id="modal-checkout" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background:rgba(0,0,0,0.85);">
+  <div class="relative w-full max-w-md bg-[#0a0a0a] border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl">
+    <button onclick="fecharCheckout()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div class="mb-6">
+      <p class="text-verde-claro text-xs font-bold uppercase tracking-widest mb-1">Sagrado Homem 2027</p>
+      <h2 class="text-white text-xl sm:text-2xl font-black leading-tight">Garantir minha vaga</h2>
+      <p class="text-gray-400 text-sm mt-1">Preencha os dados abaixo para ir ao pagamento seguro.</p>
+    </div>
+    <form id="form-checkout" onsubmit="submeterCheckout(event)" class="flex flex-col gap-4">
+      <div>
+        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-1">Nome completo *</label>
+        <input id="co-nome" type="text" required placeholder="Seu nome" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-verde/50 text-sm">
+      </div>
+      <div>
+        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-1">E-mail *</label>
+        <input id="co-email" type="email" required placeholder="seu@email.com" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-verde/50 text-sm">
+      </div>
+      <div>
+        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-1">CPF *</label>
+        <input id="co-cpf" type="text" required placeholder="000.000.000-00" maxlength="14" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-verde/50 text-sm" oninput="mascaraCPF(this)">
+      </div>
+      <div>
+        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-1">Telefone (opcional)</label>
+        <input id="co-tel" type="text" placeholder="(11) 99999-9999" maxlength="15" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-verde/50 text-sm" oninput="mascaraTel(this)">
+      </div>
+      <div id="co-erro" class="hidden text-red-400 text-sm text-center"></div>
+      <button type="submit" id="co-btn" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-base px-8 py-4 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.5)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] transition-all duration-300 border border-verde-claro/30 cursor-pointer w-full mt-2">
+        <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-verde-claro/50 to-transparent"></div>
+        <span id="co-btn-txt" class="relative z-10 uppercase tracking-wider">Ir para o pagamento →</span>
+      </button>
+      <p class="text-center text-gray-600 text-xs">🔒 Pagamento 100% seguro via Asaas · PIX, Boleto ou Cartão</p>
+    </form>
+  </div>
+</div>
+
+<script>
+  function abrirCheckout() {
+    var m = document.getElementById('modal-checkout');
+    m.classList.remove('hidden');
+    m.classList.add('flex');
+  }
+  function fecharCheckout() {
+    var m = document.getElementById('modal-checkout');
+    m.classList.add('hidden');
+    m.classList.remove('flex');
+  }
+  document.getElementById('modal-checkout').addEventListener('click', function(e) {
+    if (e.target === this) fecharCheckout();
+  });
+
+  function mascaraCPF(el) {
+    var v = el.value.replace(/\D/g, '').slice(0, 11);
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    el.value = v;
+  }
+  function mascaraTel(el) {
+    var v = el.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length <= 10) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    else v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    el.value = v;
+  }
+
+  async function submeterCheckout(e) {
+    e.preventDefault();
+    var btn = document.getElementById('co-btn');
+    var btnTxt = document.getElementById('co-btn-txt');
+    var erro = document.getElementById('co-erro');
+    erro.classList.add('hidden');
+    btn.disabled = true;
+    btnTxt.textContent = 'Aguarde...';
+
+    var payload = {
+      nome: document.getElementById('co-nome').value.trim(),
+      email: document.getElementById('co-email').value.trim(),
+      cpf: document.getElementById('co-cpf').value.trim(),
+      telefone: document.getElementById('co-tel').value.trim(),
+    };
+
+    try {
+      var resp = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      var data = await resp.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        erro.textContent = data.error || 'Erro ao gerar link. Tente novamente.';
+        erro.classList.remove('hidden');
+        btn.disabled = false;
+        btnTxt.textContent = 'Ir para o pagamento →';
+      }
+    } catch (err) {
+      erro.textContent = 'Erro de conexão. Verifique sua internet e tente novamente.';
+      erro.classList.remove('hidden');
+      btn.disabled = false;
+      btnTxt.textContent = 'Ir para o pagamento →';
+    }
+  }
 </script>
 </body>
 </html>
