@@ -887,6 +887,25 @@
         <label class="block text-gray-400 text-xs uppercase tracking-wider mb-1">Telefone (opcional)</label>
         <input id="co-tel" type="text" placeholder="(11) 99999-9999" maxlength="15" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-verde/50 text-sm" oninput="mascaraTel(this)">
       </div>
+      <div>
+        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Forma de pagamento</label>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-3 cursor-pointer hover:border-verde/50 transition-colors has-[:checked]:border-verde has-[:checked]:bg-verde/10">
+            <input type="radio" name="co-parcelas" value="avista" checked class="accent-verde">
+            <div>
+              <p class="text-white text-sm font-bold">À vista</p>
+              <p class="text-gray-400 text-xs">R$ 2.997,11</p>
+            </div>
+          </label>
+          <label class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-3 cursor-pointer hover:border-verde/50 transition-colors has-[:checked]:border-verde has-[:checked]:bg-verde/10">
+            <input type="radio" name="co-parcelas" value="11x" class="accent-verde">
+            <div>
+              <p class="text-white text-sm font-bold">11x no cartão</p>
+              <p class="text-gray-400 text-xs">R$ 332,77/mês</p>
+            </div>
+          </label>
+        </div>
+      </div>
       <div id="co-erro" class="hidden text-red-400 text-sm text-center"></div>
       <button type="submit" id="co-btn" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-base px-8 py-4 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.5)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] transition-all duration-300 border border-verde-claro/30 cursor-pointer w-full mt-2">
         <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-verde-claro/50 to-transparent"></div>
@@ -938,11 +957,13 @@
     btn.disabled = true;
     btnTxt.textContent = 'Aguarde...';
 
+    var parcelas = document.querySelector('input[name="co-parcelas"]:checked').value;
     var payload = {
       nome: document.getElementById('co-nome').value.trim(),
       email: document.getElementById('co-email').value.trim(),
       cpf: document.getElementById('co-cpf').value.trim(),
       telefone: document.getElementById('co-tel').value.trim(),
+      parcelas: parcelas,
     };
 
     try {

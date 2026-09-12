@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { nome, email, cpf, telefone } = req.body || {};
+  const { nome, email, cpf, telefone, parcelas } = req.body || {};
 
   if (!nome || !email || !cpf) {
     return res.status(400).json({ error: 'Nome, e-mail e CPF são obrigatórios.' });
@@ -51,13 +51,15 @@ export default async function handler(req, res) {
     vencimento.setDate(hoje.getDate() + 3); // 3 dias para pagar
     const dueDate = vencimento.toISOString().split('T')[0];
 
+    const is11x = parcelas === '11x';
     const cobrancaPayload = {
       customer: customerId,
-      billingType: 'UNDEFINED', // cliente escolhe: PIX, boleto ou cartão
-      value: 2997.11,
+      billingType: is11x ? 'CREDIT_CARD' : 'UNDEFINED',
+      value: is11x ? 3660.47 : 2997.11, // 11x332,77 = 3660,47
       dueDate,
       description: 'Sagrado Homem 2027 — Retiro de Transformação Masculina (26 a 28 de março)',
       externalReference: `SH27-${Date.now()}`,
+      ...(is11x && { installmentCount: 11, installmentValue: 332.77 }),
     };
 
     const criarCobranca = await fetch(`${ASAAS_URL}/payments`, {
