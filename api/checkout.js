@@ -51,15 +51,15 @@ export default async function handler(req, res) {
     vencimento.setDate(hoje.getDate() + 3); // 3 dias para pagar
     const dueDate = vencimento.toISOString().split('T')[0];
 
-    const is11x = parcelas === '11x';
+    const is10x = parcelas === '10x';
     const cobrancaPayload = {
       customer: customerId,
-      billingType: is11x ? 'CREDIT_CARD' : 'UNDEFINED',
-      value: is11x ? 3660.47 : 2997.11, // 11x332,77 = 3660,47
+      billingType: is10x ? 'CREDIT_CARD' : 'UNDEFINED',
+      value: is10x ? 3601.90 : 2997.11,
       dueDate,
       description: 'Sagrado Homem 2027 — Retiro de Transformação Masculina (26 a 28 de março)',
       externalReference: `SH27-${Date.now()}`,
-      ...(is11x && { installmentCount: 11, installmentValue: 332.77 }),
+      ...(is10x && { installmentCount: 10, installmentValue: 360.19 }),
     };
 
     const criarCobranca = await fetch(`${ASAAS_URL}/payments`, {
