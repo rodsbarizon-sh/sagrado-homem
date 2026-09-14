@@ -55,11 +55,11 @@ export default async function handler(req, res) {
     const cobrancaPayload = {
       customer: customerId,
       billingType: is10x ? 'CREDIT_CARD' : 'UNDEFINED',
-      value: is10x ? 3601.90 : 2997.11,
+      value: is10x ? 3121.70 : 2997.11,
       dueDate,
       description: 'Sagrado Homem 2027 — Retiro de Transformação Masculina (26 a 28 de março)',
       externalReference: `SH27-${Date.now()}`,
-      ...(is10x && { installmentCount: 10, installmentValue: 360.19 }),
+      ...(is10x && { installmentCount: 10, installmentValue: 312.17 }),
     };
 
     const criarCobranca = await fetch(`${ASAAS_URL}/payments`, {
