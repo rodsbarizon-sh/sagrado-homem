@@ -888,23 +888,19 @@
         <input id="co-tel" type="text" placeholder="(11) 99999-9999" maxlength="15" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-verde/50 text-sm" oninput="mascaraTel(this)">
       </div>
       <div>
-        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Forma de pagamento</label>
-        <div class="grid grid-cols-2 gap-2">
-          <label class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-3 cursor-pointer hover:border-verde/50 transition-colors has-[:checked]:border-verde has-[:checked]:bg-verde/10">
-            <input type="radio" name="co-parcelas" value="avista" checked class="accent-verde">
-            <div>
-              <p class="text-white text-sm font-bold">À vista</p>
-              <p class="text-gray-400 text-xs">R$ 2.997,11</p>
-            </div>
-          </label>
-          <label class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-3 cursor-pointer hover:border-verde/50 transition-colors has-[:checked]:border-verde has-[:checked]:bg-verde/10">
-            <input type="radio" name="co-parcelas" value="10x" class="accent-verde">
-            <div>
-              <p class="text-white text-sm font-bold">10x no cartão</p>
-              <p class="text-gray-400 text-xs">R$ 312,17/mês</p>
-            </div>
-          </label>
-        </div>
+        <label class="block text-gray-400 text-xs uppercase tracking-wider mb-2">Parcelamento</label>
+        <select id="co-parcelas" class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-verde/50 text-sm cursor-pointer appearance-none" style="background-color:#111; color-scheme:dark;">
+          <option value="avista">À vista — R$ 2.997,11 (PIX ou Boleto)</option>
+          <option value="2x">2x — R$ 1.552,49/mês (total R$ 3.104,98)</option>
+          <option value="3x">3x — R$ 1.034,99/mês (total R$ 3.104,97)</option>
+          <option value="4x">4x — R$ 776,24/mês (total R$ 3.104,96)</option>
+          <option value="5x">5x — R$ 620,99/mês (total R$ 3.104,95)</option>
+          <option value="6x">6x — R$ 517,50/mês (total R$ 3.105,00)</option>
+          <option value="7x">7x — R$ 445,96/mês (total R$ 3.121,72)</option>
+          <option value="8x">8x — R$ 390,21/mês (total R$ 3.121,68)</option>
+          <option value="9x">9x — R$ 346,86/mês (total R$ 3.121,74)</option>
+          <option value="10x">10x — R$ 312,17/mês (total R$ 3.121,70)</option>
+        </select>
       </div>
       <div id="co-erro" class="hidden text-red-400 text-sm text-center"></div>
       <button type="submit" id="co-btn" class="btn-shimmer group relative inline-flex items-center justify-center gap-2 bg-gradient-to-b from-[#2ad100] to-[#148f00] text-white font-black text-base px-8 py-4 rounded-full overflow-hidden shadow-[0_0_40px_rgba(26,182,0,0.5)] hover:shadow-[0_0_60px_rgba(26,182,0,0.8)] transition-all duration-300 border border-verde-claro/30 cursor-pointer w-full mt-2">
@@ -957,7 +953,7 @@
     btn.disabled = true;
     btnTxt.textContent = 'Aguarde...';
 
-    var parcelas = document.querySelector('input[name="co-parcelas"]:checked').value;
+    var parcelas = document.getElementById('co-parcelas').value;
     var payload = {
       nome: document.getElementById('co-nome').value.trim(),
       email: document.getElementById('co-email').value.trim(),
