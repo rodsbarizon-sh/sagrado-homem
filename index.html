@@ -983,6 +983,9 @@
       });
       var data = await resp.json();
       if (data.url) {
+        // Restaura o botão antes de redirecionar — se o usuário voltar, o modal funciona de novo
+        btn.disabled = false;
+        btnTxt.textContent = 'Ir para o pagamento →';
         window.location.href = data.url;
       } else {
         erro.textContent = data.error || 'Erro ao gerar link. Tente novamente.';
