@@ -51,25 +51,33 @@ export default async function handler(req, res) {
     vencimento.setDate(hoje.getDate() + 3); // 3 dias para pagar
     const dueDate = vencimento.toISOString().split('T')[0];
 
-    // Tabela: parcelas → [installmentValue, total] garantindo receber R$ 2.997,11 líquido
-    // Taxa Asaas: 1x=2,99% | 2x-6x=3,49% | 7x-12x=3,99%
+    // Tabela: parcelas → [installmentValue, total] — mesmos valores para cartão e boleto
     const PARCELAS = {
-      avista: { n: 0,  valor: 2997.11, total: 2997.11 },
-      '2x':   { n: 2,  valor: 1552.49, total: 3104.98 },
-      '3x':   { n: 3,  valor: 1034.99, total: 3104.97 },
-      '4x':   { n: 4,  valor:  776.24, total: 3104.96 },
-      '5x':   { n: 5,  valor:  620.99, total: 3104.95 },
-      '6x':   { n: 6,  valor:  517.50, total: 3105.00 },
-      '7x':   { n: 7,  valor:  445.96, total: 3121.72 },
-      '8x':   { n: 8,  valor:  390.21, total: 3121.68 },
-      '9x':   { n: 9,  valor:  346.86, total: 3121.74 },
-      '10x':  { n: 10, valor:  312.17, total: 3121.70 },
+      avista:       { n: 0,  valor: 2997.11, total: 2997.11, tipo: 'UNDEFINED'     },
+      '2x':         { n: 2,  valor: 1552.49, total: 3104.98, tipo: 'CREDIT_CARD'   },
+      '3x':         { n: 3,  valor: 1034.99, total: 3104.97, tipo: 'CREDIT_CARD'   },
+      '4x':         { n: 4,  valor:  776.24, total: 3104.96, tipo: 'CREDIT_CARD'   },
+      '5x':         { n: 5,  valor:  620.99, total: 3104.95, tipo: 'CREDIT_CARD'   },
+      '6x':         { n: 6,  valor:  517.50, total: 3105.00, tipo: 'CREDIT_CARD'   },
+      '7x':         { n: 7,  valor:  445.96, total: 3121.72, tipo: 'CREDIT_CARD'   },
+      '8x':         { n: 8,  valor:  390.21, total: 3121.68, tipo: 'CREDIT_CARD'   },
+      '9x':         { n: 9,  valor:  346.86, total: 3121.74, tipo: 'CREDIT_CARD'   },
+      '10x':        { n: 10, valor:  312.17, total: 3121.70, tipo: 'CREDIT_CARD'   },
+      'boleto-2x':  { n: 2,  valor: 1552.49, total: 3104.98, tipo: 'BOLETO'        },
+      'boleto-3x':  { n: 3,  valor: 1034.99, total: 3104.97, tipo: 'BOLETO'        },
+      'boleto-4x':  { n: 4,  valor:  776.24, total: 3104.96, tipo: 'BOLETO'        },
+      'boleto-5x':  { n: 5,  valor:  620.99, total: 3104.95, tipo: 'BOLETO'        },
+      'boleto-6x':  { n: 6,  valor:  517.50, total: 3105.00, tipo: 'BOLETO'        },
+      'boleto-7x':  { n: 7,  valor:  445.96, total: 3121.72, tipo: 'BOLETO'        },
+      'boleto-8x':  { n: 8,  valor:  390.21, total: 3121.68, tipo: 'BOLETO'        },
+      'boleto-9x':  { n: 9,  valor:  346.86, total: 3121.74, tipo: 'BOLETO'        },
+      'boleto-10x': { n: 10, valor:  312.17, total: 3121.70, tipo: 'BOLETO'        },
     };
     const opcao = PARCELAS[parcelas] || PARCELAS['avista'];
     const isParcelado = opcao.n > 0;
     const cobrancaPayload = {
       customer: customerId,
-      billingType: isParcelado ? 'CREDIT_CARD' : 'UNDEFINED',
+      billingType: opcao.tipo,
       value: opcao.total,
       dueDate,
       description: 'Sagrado Homem 2027 — Retiro de Transformação Masculina (26 a 28 de março)',
